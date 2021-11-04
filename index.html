@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+    <link rel="stylesheet" type="text/css" href="./Training_log.css">
+    <link  type="text/javascript" href="./Training_log_practice.js">
+    <!-- <script type="text/javascript" href="static/Training_log_practice.js"></script> -->
+</head>
+
+<body>
+    <h1>Practice index.html</h1>
+    <!-- from https://www.freecodecamp.org/news/learn-javascript-form-validation-by-making-a-form/ -->
+    <div class="container">
+        <form action="/get_categories" id="form" method="POST">
+            <div class="title">Get Categories Form</div>
+            <div>
+                <label for="data_field">hidden data goes here</label>
+                <input type="text"
+                name="transfer_data"
+                id="transfer_data"
+                placeholder="data_goes_here"
+                >
+                
+            </div>
+            <div></div>
+            <div></div>
+            <button id="btn" type="submit">Submit</button>
+            
+        </form>
+
+        <form id="form"></form>
+
+    </div>
+    <p class="" id="JSONData"></p>
+    <form action="/get_categories" method="GET">
+        <h3>get categories</h3>
+        <div class="form-row">
+          <label for="name"> enter name </label>
+          <input type="text" name="name" id="name" autocomplete="false" />
+        </div>
+        <button type="submit" class="block">submit</button>
+      </form>
+    <!-- // start: from Free Code Camp Course 6:53 https://www.youtube.com/watch?v=Oe421EPjeBE -->
+    <form action="/html_to_database" method="GET">
+    <h3>Read in HTML File</h3>
+    <!-- <a href="/html_to_database">html_to_database</a> doesn't work-->
+
+    </form>
+     <!-- // end: from Free Code Camp Course 6:53 https://www.youtube.com/watch?v=Oe421EPjeBE -->
+
+     <!-- // start: from Free Code Camp Course 7:07:15 https://www.youtube.com/watch?v=Oe421EPjeBE -->
+    <!-- <form action="submit" method="POST">
+    <h3>Javascript Form POST</h3>
+    <div class="form-row">
+        <label for="name">enter name</label>
+        <input type="text" name="name" id="name" class="form-alert" autocomplete="false" /> -->
+    <!-- </div>
+    <small class="form-alert"></small>
+    <button type="submit" class="block">submit</button>
+</form> -->
+    <!-- paused at 7:08:47 -->
+    <!-- // end: from Free Code Camp Course 7:07:15 https://www.youtube.com/watch?v=Oe421EPjeBE -->
+
+
+    <li class="workout">
+        <span class="data"> <a href="https://ma.manflowyoga.com/library-item/haka-circles/" class="link">Haka
+                Circles</a> </span><span class="workout-log-date-separator-before">-</span>
+        <span class="dates">5/4/21, 5/23/21, 7/6/2021</span>
+    </li>
+    <div class="TODO">
+        <p>Write new log file</p>
+        <p>javascript to search for duplicates</p>
+        <p>Add stars</p>
+        <p>Add number of times work out performed</p>
+        <p>Allow TODO in date field </p>
+        <p>create package.json file</p>
+    </div>
+    <div class="input_workout">
+        <form action="/submit" method="get">
+            <label for="workout_title">Workout Title:</label>
+            <input type="text" id="workout_title" size=50 required><br>
+            <label for="workout_link">Link Address (optional):</label>
+            <input type="url" id="workout_link" size=75><br>
+            <label for="workout_date">Date (defaults to today:</label>
+            <input type="date" id="workout_date" value="2020-01-01" size=20>><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <li class="workout">
+        <span class="data">
+            <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883543" class="link">Fill
+                in</a> </span>
+        <span class="separator">-</span>
+        <span class="dates">7/27/2021</span>
+    </li>
+
+    <details open>
+        <summary>Ankles and Balance</summary>
+        <ul class="workouts">
+
+            <li class="workout">
+                <span class="data"> <a href='https://manflowyoga.tv/programs/mfyl-ankle-stability-strength-balance'
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>Ankle Stability, Strength,
+                            Balance</strong></a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">8/16/21, 1/24/21, 11/20/20, 10/28/20, 9/29/20, 9/2/20, 8/20/20, 7/22/20</span>
+                </span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768520"
+                    target="_blank" rel="noopener noreferrer" class="link">Quickly Improve Squat Depth (Mobility for
+                    Ankles, Hips & Core) (33:20)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">8/8/2021, 12/13/20</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768521"
+                    target="_blank" rel="noopener noreferrer" class="link"><strong>Ankle Essentials Routine
+                        (33:59)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">8/1/2021, 7/15/2020, 7/27/2020, 8/29/2020, 9/17/2020, 10/8/2020, 11/15/2020,
+                    1/3/2021, 1/11/2021, 4/8/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768518"
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>Balance Mastery
+                            Basics</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">7/27/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://ma.manflowyoga.com/library-item/ankle-mobility-squats/" target="_blank"
+                        rel="noopener noreferrer" class="link"><strong>Ankle Mobility for Squats</strong></a> </span>
+                <span class="workout-log-date-separator-before">-</span>
+                <span class="dates">4/21/2021</span>
+            </li>
+        </ul>
+    </details>
+
+    <details closed>
+        <summary>Yoga for Endurance Athletes</summary>
+        <p class="subheading">Used for MSM Race</p>
+        <ul class="workouts">
+
+            <li class="workout">
+                <span class="data"> <a
+                        href='https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768526'
+                        target="_blank" rel="noopener noreferrer" class="link">
+                        <strong>Spinal & Shoulder Mobility for Endurance Athletes (31:58)</strong></a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">8/17/21</span><span class="workout-log-date-separator-after">
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href='https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768507'
+                        target="_blank" rel="noopener noreferrer" class="link">30-Min Active Recovery for Athletes
+                        (32:42)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">8/15/21</span><span class="workout-log-date-separator-after">
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href='https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768507'
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>Intense 32-Min Total Strength &
+                            Mobility for Endurance Athletes (32:38)</strong></a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">8/13/21</span><span class="workout-log-date-separator-after">
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href='https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-recovery?cid=1768715'
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>Total Body Soreness Relief
+                            (47:46)</strong></a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">8/10/21, 2/27/2021</span><span class="workout-log-date-separator-after">
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768520"
+                        class="link"> Quickly Improve Squat Depth (Mobility for Ankles, Hips & Core) (33:20)</a></span>
+                <span class="separator">-</span>
+                <span class="data"><i>See Ankles and Balance</i></span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768522"
+                        class="link">All-Levels Total Hip Flexibility (54:10)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">8/7/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768521"
+                        class="link"><strong>Ankle Essentials Routine</strong> </a> </span>
+                <span class="separator">-</span>
+                <span class="data"><i>See Ankles and Balance</i></span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768519"
+                    class="link"><strong>Dynamic Lunge Burner for Hips & Core (29:33)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">7/31/2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768517"
+                    class="link">Unleash Your Butt Power: Glute Activation & Strength (26:57)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">7/26/2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768516"
+                    class="link"><strong>Lower-Body Joint Essentials (No-Impact Strengthening for Knees, Hips, &
+                        Ankles) (28:43)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">7/25/2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768515"
+                    class="link"><strong>Ankles & Hips Strength & Mobility for Endurance Athletes
+                        (29:45)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 21, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768509"
+                    class="link">Beginner’s Workout for Core Strength & Awareness (29:30)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 19, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-recovery?cid=1768720"
+                    class="link"><strong>Engage & Recover - Full Body Active Recovery
+                        (45:48)</strong></a></span>
+                <span class="separator">-</span>
+                <span class="dates">July 18, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-recovery?cid=1768718"
+                    class="link"><strong>1-Hour Active Recovery Routine (Athletes, Runners & Active People)
+                        (62:21)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 13, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-recovery?cid=1768723>"
+                    class="link"><strong>Weight Training Warm-up Routine (Quick, Full Body) (14:02)</strong></a>
+                </span>
+                <span class="separator">-</span>
+                <span class="dates">July 12, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768508"
+                    class="link">Total Body MAX for Athletes (60:27)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 9, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-yoga-for-endurance-athletes-workouts?cid=1768506"
+                    class="link">Yoga Strength for Cyclists: Correcting Muscular Imbalances, Posture & Mobility
+                    (28:11)
+                </a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 5, 2021</span>
+            </li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Establish Your Routine</summary>
+
+        <ul class="workouts">
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883551"
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>Yoga Flow for Strength & Muscle
+                            Burn (38:58)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">TODO</span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883550"
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>Strength, Muscle-Activation, &
+                            Dynamic Movements (41:27)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">8/14/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883549"
+                        class="link"><strong>Power Yoga for Shoulders & Core (36:20)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">7/29/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883547"
+                        class="link"><strong>Hip Mobility for Strength & Power (24:06)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">7/28/2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883546"
+                    class="link"><strong>Intense Slow Flow for Mindful Strength (34:08)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 24, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883545"
+                    class="link"><strong>The Full Body Works (34:08)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 22, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883544"
+                    class="link"><strong>Shoulder Strength & Mobility Burn (30:31)</a></strong></span>
+                <span class="separator">-</span>
+                <span class="dates">July 20, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883543"
+                    class="link"><strong>Yoga for Balance (Beginner & Inflexible-Friendly) (34:10)</strong></a>
+                </span>
+                <span class="separator">-</span>
+                <span class="dates">July 14, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883540&offset=2"
+                    class="link"><strong>12-Min Gentle Morning Stretch (14:35)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 13, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883541"
+                    class="link"><strong>Ankle Strength, Stability & Mobility for Bulletproof Knees
+                        (32:48)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 13, 2021</span>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883540&offset=2"
+                    class="link">Hip Strength for Bulletproof Knees (36:22)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 10, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883539"
+                    class="link">Hips & Core Strength for Low-Back Stiffness (The Clark Workouts #1) (29:23)</a>
+                </span>
+                <span class="separator">-</span>
+                <span class="dates">July 8, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883537"
+                    class="link">Full-Body Power Yoga Flow for Strength (39:44)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 7, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="#" class="link">Week 3 of Establish Your Routine</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 2, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883535"
+                    class="link">Strong Backbends - Full Body Engagement in Spinal Extension (SFC #9)
+                    (36:08)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 2, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883534"
+                    class="link">Active Hamstring Mobility & Engagement for Forward Folds(SFC #8) (38:14)</a>
+                </span>
+                <span class="separator">-</span>
+                <span class="dates">July 1, 2021</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883533"
+                    class="link">Strength, Endurance, and Muscle Activation for Hips, Core and Side Body (SFC
+                    #7) (32:09)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">June 30, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883528"
+                        class="link">Dynamic Slow Flow for Full Body Burn (Cardio) (35:24)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 28, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883528"
+                        class="link">Twists, Planks, Core, & More (SFC #5) (33:52)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 29, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883528"
+                        class="link">Dynamic Slow Flow for Full Body Burn (Cardio) (35:24)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 28, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883529"
+                        class="link">Back Pain Relief - Balance 2 (16:25)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 27, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883528"
+                        class="link">Easy, All-Standing Routine for Full Body Flexibility and Posture (Morning
+                        Routine) (22:46)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 26, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883527"
+                        class="link">Yoga for Sciatica Pain Relief and Prevention (No Forward Folds...
+                        (29:52)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 25, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883525"
+                        class="link">Beginner-Friendly Power Yoga for Cardio and Endurance (32:48) </a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 23, 2021</span>
+            </li>
+        </ul>
+    </details>
+
+    <details closed>
+        <summary>TODO</summary>
+        <ul class="workouts">
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/mfyl-head-neck-essentials" target="_blank"
+                        rel="noopener noreferrer" class="link"><strong>Head & Neck Essentials (28:49)</strong></a>
+                </span>
+                <span class="separator">-</span>
+                <span class="dates">8/12/21</span>
+            </li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Other</summary>
+
+        <ul class="workouts">
+
+            <li class="workout">
+                <span class="data">
+                    <a href="https://manflowyoga.tv/programs/mfyl-15-minute-neck-pain-relief-and-upper-back-shoulder-strengthening"
+                        target="_blank" rel="noopener noreferrer" class="link"><strong>15-Minute Neck Pain Relief (and
+                            Upper-Back & Shoulder Strengthening) (16:57)</strong></a> </span>
+                <span class="separator">-</span>
+                <span class="dates">8/11/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/mfyl-23-min-yoga-to-fix-anterior-pelvic-tilt?categoryId=68275"
+                        class="link"><strong>23-Min Yoga to Fix Anterior Pelvic Tilt (23:39)</strong></a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">8/10/21</span>
+            </li>
+
+            <li class="workout">
+                <a href="https://manflowyoga.tv/programs/mfyl-total-hamstring-flexibility-mobility" class="link">Total
+                    Hamstring Flexibility & Mobility (22:47)</a> </span>
+                <span class="separator">-</span>
+                <span class="dates">July 10, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://manflowyoga.tv/programs/mfyl-hip-hamstring-adductor-37"
+                        class="link">Hip,
+                        Hamstring, & Adductor Flexibility (37 Minutes) - Last Workout in the Ultimate Runners Guide
+                        Level
+                        2</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 22, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/mfyl-stretch-strengthen-for-neck-shoulder-pain-relief"
+                        class="link">Stretch & Strengthen for Neck & Shoulder Pain Relief 22:13</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 21, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883521"
+                        class="link">Shoulder Essentials 23:35 (morning routine)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 21, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://manflowyoga.tv/programs/collection-establish-your-routine?cid=1883521"
+                        class="link">Spine Essentials 18:50 (morning routine)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 20, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/haka-side-lunge-mobility/"
+                        class="link">Haka Side Lunge Mobility</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">5/9/21, 5/28/21, 6/11/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/hip-hamstring-adductor-37/"
+                        class="link">Hip, Hamstring, &amp; Adductor Flexibility – 37 Minutes</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 8, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/haka-circles/" class="link">Haka
+                        Circles</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">5/4/21, 5/23/21, 7/6/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/isometrics-strength-stability/"
+                        class="link">Yoga Isometrics for Strength and Stability</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 4, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/advanced-hip-flexor/"
+                        class="link">Advanced Hip Flexor Workout for Strength &amp; Flexibility</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">June 1, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/deans-travel-workout-back-stiffness-relief-50-minute/"
+                        class="link">Dean’s Travel Workout (Back Stiffness Relief) – 50 Minute</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 30, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/fix-workout-2/" class="link">The
+                        Fix
+                        (Workout 2)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">5/30/2021, 5/16/2021, 4/11/2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/20-minute-hip-strength-essentials-flow/"
+                        class="link">20 Minute Hip Strength Essentials Flow</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 29, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/post-run-flexibility-routine-30-minutes/"
+                        class="link">Post-Run Flexibility Routine (30 Minutes)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 22, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/advanced-hip-flexor/"
+                        class="link">Advanced Hip Flexor Workout for Strength &amp; Flexibility</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 21, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/advanced-hip-flexor/"
+                        class="link">Advanced Hip Flexor Workout for Strength &amp; Flexibility</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 21, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/post-hike-stretch-routine/"
+                        class="link">Post Hike Stretch Routine</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 19, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/isometrics-strength-stability/"
+                        class="link">Yoga Isometrics for Strength and Stability</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 18, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/nighttime-routine/"
+                        class="link">Nighttime
+                        Routine</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 14, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/balance-squats-core/"
+                        class="link">Balance, Squats, and Core</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">5/14/2021, 4/9/2021, 4/3/2021</span><span class="workout-log-date-separator-after">
+                    -
+                </span>
+
+                < </li> <li class="workout">
+                    <span class="data"> <a href="https://ma.manflowyoga.com/library-item/psoas-flexibility-strength/"
+                            class="link">HIP FLEXORS: Strengthen and Increase the Flexibility of Your Psoas</a>
+                    </span><span class="workout-log-date-separator-before">-</span>
+                    <span class="dates">May 12, 2021</span><span class="workout-log-date-separator-after"> -
+                    </span>
+
+                    < </li> <li class="workout">
+                        <span class="data"> <a href="https://ma.manflowyoga.com/library-item/thoracic-mobility-workout/"
+                                class="link">The Thoracic Mobility Workout</a> </span><span
+                            class="workout-log-date-separator-before">-</span>
+                        <span class="dates">May 10, 2021</span><span class="workout-log-date-separator-after"> -
+                        </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/hip-hamstring-adductor-37/"
+                        class="link">Hip, Hamstring, &amp; Adductor Flexibility – 37 Minutes</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 7, 2021</span><span class="workout-log-date-separator-after"> - </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/psoas-flexibility-strength/"
+                        class="link">HIP FLEXORS: Strengthen and Increase the Flexibility of Your Psoas</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 12, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/thoracic-mobility-workout/"
+                        class="link">The Thoracic Mobility Workout</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 10, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/hip-hamstring-adductor-37/"
+                        class="link">Hip, Hamstring, &amp; Adductor Flexibility – 37 Minutes</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">May 7, 2021</span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/yoga-knee-pain-relief/"
+                        class="link">Yoga
+                        for Knee Pain Relief</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 21, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/yoga-for-shin-splints-strength-recovery/"
+                        class="link">Yoga for Shin Splints – Strength &amp; Recovery</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 19, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/isometrics-strength-stability/"
+                        class="link">Yoga Isometrics for Strength and Stability</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 17, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/advanced-hip-flexor/"
+                        class="link">Advanced Hip Flexor Workout for Strength &amp; Flexibility</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 16, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/balance-improvement-build-strength-for-balance/"
+                        class="link">Balance Improvement: Build Strength for Balance</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 15, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 3: Yoga &amp; Upper-Body Strength
+                        Work -</span> <a href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/"
+                        class="link">Beyond Strength Foundations</a> <span class="workout-log-suffix">Completed!</span>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 14, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/intermediate-ankle-strength-balance-sfws-14/"
+                        class="link">Intermediate Ankle Strength &amp; Balance (BSF&nbsp;#14)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/5-best-poses-for-before-a-run/"
+                        class="link">5 Best Poses for Before a Run</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/psoas-flexibility-strength/"
+                        class="link">HIP FLEXORS: Strengthen and Increase the Flexibility of Your Psoas</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 6, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/mobility-project-hips-2/"
+                        class="link">The
+                        Mobility Project: Hips 2</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 6, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/thoracic-mobility-workout/"
+                        class="link">The Thoracic Mobility Workout</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 5, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/guyoga-yoga-sharpen/"
+                        class="link">Guyoga:
+                        Yoga Sharpen</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 4, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/intermediate-ankle-strength-balance-sfws-14/"
+                        class="link">Intermediate Ankle Strength &amp; Balance (BSF&nbsp;#14)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/5-best-poses-for-before-a-run/"
+                        class="link">5 Best Poses for Before a Run</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/psoas-flexibility-strength/"
+                        class="link">HIP FLEXORS: Strengthen and Increase the Flexibility of Your Psoas</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 6, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/mobility-project-hips-2/"
+                        class="link">The
+                        Mobility Project: Hips 2</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 6, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/thoracic-mobility-workout/"
+                        class="link">The Thoracic Mobility Workout</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 5, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/guyoga-yoga-sharpen/"
+                        class="link">Guyoga:
+                        Yoga Sharpen</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">April 4, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 3: Core, Glutes &amp; Thighs
+                        Burner for External Hip Rotation Mobility -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 27, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/psoas-flexibility-strength/"
+                        class="link">HIP FLEXORS: Strengthen and Increase the Flexibility of Your Psoas</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 26, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/morning-yoga-confidence-energy/"
+                        class="link">Morning Yoga for Confidence &amp; Energy</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 26, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/straps-for-shoulders/"
+                        class="link">Straps
+                        For Shoulders</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 24, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/10-minute-pre-sit-workout/"
+                        class="link">10-Minute Pre-Sit Workout</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 24, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/spine-hips-strength-mobility-level-2/"
+                        class="link">Spine and Hips Strength and Mobility – Level 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 24, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/ankle-mobility-squats/"
+                        class="link">Ankle
+                        Mobility for Squats</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 23, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/yoga-for-shin-splints-strength-recovery/"
+                        class="link">Yoga for Shin Splints – Strength &amp; Recovery</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 21, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/5-best-poses-for-before-a-run/"
+                        class="link">5 Best Poses for Before a Run</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 20, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/the-bare-minimum-12-minutes/"
+                        class="link">The Bare Minimum – 12 Minutes</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 20, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/band-strengthening-for-hips-core-shoulders-sfws-6/"
+                        class="link">Band Strengthening for Hips, Core, &amp; Shoulders (BSF&nbsp;#6)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 19, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/band-strengthening-for-hips-core-shoulders-sfws-6/"
+                        class="link">Band Strengthening for Hips, Core, &amp; Shoulders (BSF&nbsp;#6)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 19, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/standing-total-body-activation/"
+                        class="link">All Standing Total Body Activation</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 19, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/guyoga-yoga-sharpen/"
+                        class="link">Guyoga:
+                        Yoga Sharpen</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 18, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/spine-hips-strength-mobility-level-1/"
+                        class="link">Spine and Hips Strength and Mobility – Level 1</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 17, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+
+                < </li> <li class="workout">
+                    <span class="data"> <a href="https://ma.manflowyoga.com/library-item/back-pain-relief-balance-2/"
+                            class="link">Back Pain Relief – Balance 2</a> </span><span
+                        class="workout-log-date-separator-before">-</span>
+                    <span class="dates">March 17, 2021</span><span class="workout-log-date-separator-after"> -
+                    </span>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/quick-posture-fixer-upper/"
+                        class="link">The Quick Posture Fixer Upper</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 17, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/morning-yoga-confidence-energy/"
+                        class="link">Morning Yoga for Confidence &amp; Energy</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 16, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/quick-posture-fixer-upper/"
+                        class="link">The Quick Posture Fixer Upper</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 15, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/spine-hips-strength-mobility-level-2/"
+                        class="link">Spine and Hips Strength and Mobility – Level 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 14, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+
+                < </li> <li class="workout">
+                    <span class="data"> <a href="https://ma.manflowyoga.com/library-item/twists-core-and-hips/"
+                            class="link">Twists, Core, and Hips (BSF&nbsp;#5)</a> </span><span
+                        class="workout-log-date-separator-before">-</span>
+                    <span class="dates">March 13, 2021</span><span class="workout-log-date-separator-after"> -
+                    </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/guyoga-yoga-sharpen/"
+                        class="link">Guyoga:
+                        Yoga Sharpen</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 12, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/the-bare-minimum-12-minutes/"
+                        class="link">The Bare Minimum – 12 Minutes</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 12, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/ready-set-go-core-emphasis/"
+                        class="link">Ready, Set, Go! – (Core Emphasis)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 11, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/full-body-essentials/"
+                        class="link">Full
+                        Body Essentials</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 11, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/quick-posture-fixer-upper/"
+                        class="link">The Quick Posture Fixer Upper</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 10, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/back-pain-relief-balance-2/"
+                        class="link">Back Pain Relief – Balance 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 10, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/back-pain-relief-balance-1/"
+                        class="link">Back Pain Relief – Balance 1</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 9, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/psoas-flexibility-strength/"
+                        class="link">HIP FLEXORS: Strengthen and Increase the Flexibility of Your Psoas</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 9, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/10-minute-pre-sit-workout/"
+                        class="link">10-Minute Pre-Sit Workout</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/spine-hips-strength-mobility-level-2/"
+                        class="link">Spine and Hips Strength and Mobility – Level 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/guyoga-yoga-sharpen/"
+                        class="link">Guyoga:
+                        Yoga Sharpen</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 7, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/scott-gentle-spinal-recovery/"
+                        class="link">The Scott – Gentle Spinal Recovery</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 7, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/full-body-essentials/"
+                        class="link">Full
+                        Body Essentials</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 5, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/10-minute-pre-sit-workout/"
+                        class="link">10-Minute Pre-Sit Workout</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 3, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/back-pain-relief-balance-2/"
+                        class="link">Back Pain Relief – Balance 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 2, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/yoga-flow-extension-level-1/"
+                        class="link">Yoga Flow for Extension – Level 1</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 2, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/yoga-flow-extension-level-2/"
+                        class="link">Yoga Flow for Extension Level 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">March 1, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/spine-hips-strength-mobility-level-2/"
+                        class="link">Spine and Hips Strength and Mobility – Level 2</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 28, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/20-minute-yoga-upper-body-strength-work-sfws-15/"
+                        class="link">20-Minute Yoga &amp; Upper-Body Strength Work (BSF&nbsp;#15)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 28, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/strength-foundations-recovery-cooldown-10/"
+                        class="link">Strength Foundations Recovery &amp; Cooldown #10</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 23, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 3: Intense Scapular Strength &amp;
+                        Shoulder Mobility -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 18, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 3: Core, Glutes &amp; Thighs
+                        Burner for External Hip Rotation Mobility -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 14, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/ankle-mobility-squats/"
+                        class="link">Ankle
+                        Mobility for Squats</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 13, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/morning-yoga-for-strength-back-friendly/"
+                        class="link">Morning Yoga for Strength (Back-Friendly)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">February 9, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 3: Yoga Push-Ups, Full Chest,
+                        Shoulder, &amp; Upper-back Strength &amp; Mobility -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 30, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/1-hour-active-recovery-routine-athletes-runners-active-people/"
+                        class="link">1-Hour Active Recovery Routine (Athletes, Runners &amp; Active People)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 23, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/yoga-build-from-yoga-max-33/"
+                        class="link">Yoga Build (from Yoga Max 33)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 20, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/ankle-strength-stability-mobility-bulletproof-knees/"
+                        class="link">Ankle Strength, Stability &amp; Mobility for Bulletproof Knees</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 17, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 2: Downdog Strength &amp; Mobility
+                        – Hamstrings, Shoulders &amp; Core -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 16, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 14 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 15, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 13 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 14, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 12 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 13, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/yoga-for-depression-anxiety/"
+                        class="link">Yoga for Depression &amp; Anxiety</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 13, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 11 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 12, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/nighttime-routine/"
+                        class="link">Nighttime
+                        Routine</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 12, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/nighttime-routine/"
+                        class="link">Nighttime
+                        Routine</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 12, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 10 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 11, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 8 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 10, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/lower-body-foam-roller-routine-better-sleep/"
+                        class="link">Lower-Body Foam Roller Routine &amp; Better Sleep</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 10, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 2: The Super Strong Spine &amp;
+                        Core Workout -</span> <a href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/"
+                        class="link">Beyond Strength Foundations</a> <span class="workout-log-suffix">Completed!</span>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 9, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 7 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 9, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 6 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 8, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/recovery-stress-relief-essentials/"
+                        class="link">Recovery &amp; Stress Relief Essentials</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 7, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 4 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 6, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 3 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 5, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Day 2 of</span> <a
+                        href="https://ma.manflowyoga.com/programs/the-essentials-challenge/" class="link">The
+                        Essentials Challenge</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 4, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/movement-essentials-spine-core-hips/"
+                        class="link">Movement Essentials (Spine, Core, &amp; Hips)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 3, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 2: The Super Strong Spine &amp;
+                        Core Workout -</span> <a href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/"
+                        class="link">Beyond Strength Foundations</a> <span class="workout-log-suffix">Completed!</span>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">January 2, 2021</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 2: Slow Burn Yoga for Hamstring
+                        Mobility &amp; Core Strength -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 31, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+
+                < </li> <li class="workout">
+                    <span class="data"><span class="workout-log-prefix">Phase 2: Strength &amp; Endurance
+                            Burner
+                            for Core, Hips &amp; Side Body -</span> <a
+                            href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                            Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                        class="workout-log-date-separator-before">-</span>
+                    <span class="dates">December 27, 2020</span><span class="workout-log-date-separator-after"> -
+                    </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 2: Band Strengthening for Hips,
+                        Core, &amp; Shoulders -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 25, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/stretch-strengthen-for-neck-shoulder-pain-relief/"
+                        class="link">Stretch &amp; Strengthen for Neck &amp; Shoulder Pain Relief</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 23, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/30-min-active-recovery-for-athletes/"
+                        class="link">30-Min Active Recovery for Athletes</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 20, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/intermediate-ankle-strength-balance-sfws-14/"
+                        class="link">Intermediate Ankle Strength &amp; Balance (BSF&nbsp;#14)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 19, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/twists-core-and-hips/"
+                        class="link">Twists, Core, and Hips (BSF&nbsp;#5)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 18, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/downdog-strength-mobility-hamstrings-shoulders-core-sfws-10/"
+                        class="link">Downdog Strength &amp; Mobility – Hamstrings, Shoulders &amp; Core
+                        (BSF&nbsp;#10)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 16, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/super-strong-spine-core-workout-sfws-9/"
+                        class="link">The Super Strong Spine &amp; Core Workout (BSF&nbsp;#9)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 9, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/ankle-mobility-squats/"
+                        class="link">Ankle
+                        Mobility for Squats</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 5, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/slow-burn-yoga-for-hamstring-mobility-core-strength-sfws-8/"
+                        class="link">Slow Burn Yoga for Hamstring Mobility &amp; Core Strength (BSF&nbsp;#8)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">December 2, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/stretch-strengthen-for-neck-shoulder-pain-relief/"
+                        class="link">Stretch &amp; Strengthen for Neck &amp; Shoulder Pain Relief</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 29, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/strength-endurance-burner-for-core-hips-side-body-sfws-7/"
+                        class="link">Strength &amp; Endurance Burner for Core, Hips &amp; Side Body
+                        (BSF&nbsp;#7)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 26, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/band-strengthening-for-hips-core-shoulders-sfws-6/"
+                        class="link">Band Strengthening for Hips, Core, &amp; Shoulders (BSF&nbsp;#6)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 21, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/workout-for-core-strength-breathing-balance/"
+                        class="link">Workout for Core Strength, Breathing, &amp; Balance (BSF&nbsp;#2)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 18, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/twists-core-and-hips/"
+                        class="link">Twists, Core, and Hips (BSF&nbsp;#5)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 15, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/ankles-hips-strength-mobility-for-endurance-athletes/"
+                        class="link">Ankles &amp; Hips Strength &amp; Mobility for Endurance Athletes</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 11, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/intense-core-work-full-body-strength/"
+                        class="link">Intense Core Work &amp; Full Body Strength (BSF&nbsp;#4)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 11, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/strength-foundations-workout-for-hips-core-breathing/"
+                        class="link">Strength Foundations Workout for Hips, Core, &amp; Breathing
+                        (BSF&nbsp;#3)</a> </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 7, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/post-hike-stretch-routine/"
+                        class="link">Post Hike Stretch Routine</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 6, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/workout-for-core-strength-breathing-balance/"
+                        class="link">Workout for Core Strength, Breathing, &amp; Balance (BSF&nbsp;#2)</a>
+                </span><span class="workout-log-date-separator-before">-</span>
+                <span class="dates">November 4, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"><span class="workout-log-prefix">Phase 1: Intermediate Workout for Core
+                        Strength &amp; Breathing -</span> <a
+                        href="https://ma.manflowyoga.com/programs/beyond-strength-foundations/" class="link">Beyond
+                        Strength Foundations</a> <span class="workout-log-suffix">Completed!</span> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">October 31, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/ankle-stability-strength-balance/"
+                        class="link">Ankle Stability, Strength, Balance</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">October 28, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a
+                        href="https://ma.manflowyoga.com/library-item/post-run-flexibility-routine-30-minutes/"
+                        class="link">Post-Run Flexibility Routine (30 Minutes)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">October 26, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/the-clark-workouts-part-5/"
+                        class="link">Intense Anti-Chair Routine (The Clark Workouts #5)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">October 25, 2020</span><span class="workout-log-date-separator-after"> -
+                </span>
+            </li>
+
+            <li class="workout">
+                <span class="data"> <a href="https://ma.manflowyoga.com/library-item/the-clark-workouts-part-4/"
+                        class="link">No-Nonsense Full Body Work (The Clark Workouts #4)</a> </span><span
+                    class="workout-log-date-separator-before">-</span>
+                <span class="dates">October 21, 2020</span><span class="workout-log-date-separator-after"> -
+
+            </li>
+        </ul>
+    </details>
+
+    <div class="Old Workouts">
+        <div>
+            <h4>Max 33:</h4>
+            <p>Tried Build, Move, Push++</p>
+        </div>
+        <div>
+            <h4>Yoga Charge (5/12/21)</h4>
+            <p>Power Lunch is intense</p>
+        </div>
+        <div>
+            <h4>Workouts to Repeat</h4>
+            <p>
+                <Ankle mobility for squats (37 minutes, 6/18/20, 9/24, 10/23, 12/5, 2/13/21, see training log) +++++</p>
+                    <p>
+            </p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+
+    (Beyond) Strength Foundations Course Lesson 14 (37 minutes 10/04/20, 2/20/21)++++
+    Intermediate Ankle Strength & Balance (BSF #14) (37 minutes 12/20/20)+++++
+    Squat Depth, Strength, & Mobility (41 minutes, 9/11/20)
+    Ankles & Hips Strength & Mobility for Endurance Athletes (11/11/20) +++
+    Head and Neck Essentials (28 minutes, 7/11/20, 7/31/20, 9/19/20) ++++
+    Ankle Strength, Stability and Mobility for Bullet proof knees
+    Restorative
+    Yoga Routine for Walking All Day (26 minutes, 9/20/20) +++
+    16-Minute Shoulder Stretch & Recovery (9/20/20) ++++)
+    Post-Run Flexibility Routine (30 Minutes, 9/26/20, 10/1 ++++)
+
+    Programs completed
+    Beyond Strength Foundations (4/14/21)
+    Guyoga (7/2020)
+    Posture Fix (7/28/20, 4/6/21)
+    Strength Foundations Course (10/4/20)
+    </body>
+
+    <script src="./Training_log.js"></script>
+    <!-- <script src="./Training_log_utilities.js"></script> -->
+    <script src="./html_to_database.js"></script>
