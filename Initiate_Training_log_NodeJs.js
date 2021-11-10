@@ -23,27 +23,10 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
   }
 })
 console.log('25: Connected to database')
-table_name = 'categories'
+// table_name = 'categories'
 // reference: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
-async function drop_table(table_name) {
-  // Delete table and create new table
-  // TODO Use catch block
-  // console.log('31 dropping ', table_name)
-  try {
-    res_drop = db.run(`DROP TABLE IF EXISTS ${table_name}`)
-    console.log(`34: DROP TABLE ${table_name} res: `, 'res_drop')
-    if (table_name == 'categories') res = await create_table_categories()
-    // db.run(`DELETE FROM categories`)
-  } catch (e) {
-    console.log(`37: Could not Drop Table: ${table_name})`, res_drop)
-  }
-  console.log(`39: DROP TABLE ${table_name} res: `, 'res_drop')
-  // if (table_name == 'categories') res = await create_table_categories()
-}
-// drop_table(table_name)
 
 function create_table_categories() {
-  console.log('42 create category table here')
   db.run(`CREATE TABLE IF NOT EXISTS categories (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   category_name TEXT,
@@ -51,74 +34,65 @@ function create_table_categories() {
   isClosed INTEGER DEFAULT 0,
   category_subheading TEXT)`, (err) => {
     if (err) {
-      console.log('51: CREATE TABLE categories ERROR!', err)
+      console.log('37: CREATE TABLE categories ERROR!', err)
     }
-    console.log('53: left CREATE TABLE categories')
+    console.log('39: left CREATE TABLE categories')
+  })
+}
+
+function create_table_categories_to_workouts() {
+  db.run(`CREATE TABLE IF NOT EXISTS categories_to_workouts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  category_name TEXT,
+  workout_name TEXT)`, (err) => {
+    if (err) {
+      console.log('49: ERROR!', err)
+    }
+    console.log('51: left CREATE TABLE categories_to_workouts')
   })
 }
 
 create_table_categories()
+// create_table_categories_to_workouts()
 
 async function clear_table(table_name) {
   // Clear all rows in table_name
   try {
-    res_clear = db.run(`DELETE FROM ${table_name}`)
+    res_clear = db.run(`DELETE FROM categories
+    WHERE EXISTS (SELECT * FROM categories)`);
+    console.log('63 res_clear: ', res_clear)
     if (table_name == 'categories') {
-      res = await console.log(table_name, ' cleared')
-      for (let i = 0; i < data_list.length - 1; i++) {
-        category_name = data_list[i][0];
-        category_position = data_list[i][1];
-        isClosed = data_list[i][2];
-        category_subheading = data_list[i][3];
+      res = await console.log('65', table_name, ' cleared')
+      for (let i = 0; i < data_list[0].length - 1; i++) {
+        category_name = data_list[0][i][0];
+        category_position = data_list[0][i][1];
+        isClosed = data_list[0][i][2];
+        category_subheading = data_list[0][i][3];
         db.run(`INSERT INTO categories (category_name, category_position, isClosed, category_subheading) 
-                    VALUES(?, ?, ?, ?)`, [category_name, category_position, isClosed, category_subheading])
+                    VALUES(?, ?, ?, ?)`, [category_name, category_position, isClosed, category_subheading]);
+        // db.run(`INSERT INTO categories (category_name, category_position, isClosed, category_subheading) 
+        //             VALUES(${category_name}, ${category_position}, ${isClosed}, ${category_subheading})`);
+        // db.run(`INSERT INTO categories (category_name, category_position, isClosed, category_subheading) 
+                    // VALUES('category_name', 1, 1, 'category_subheading')`);
+        // db.run(`INSERT INTO categories (category_name) VALUES('category_name')`);
         //reference https://stackabuse.com/a-sqlite-tutorial-with-node-js/
-        console.log('101: added row')
+        console.log(`74: added row ${category_name}, ${category_position}, ${isClosed}, ${category_subheading}`)
       }
     }
   } catch (e) {
-    console.log(`80: Could not Clear Table: ${table_name})`, res_clear)
+    // console.log(`78: Could not Clear Table: ${table_name})`, res_clear)
   }
-  console.log(`82: populated TABLE ${table_name} res_clear: `, res_clear)
-  // if (table_name == 'categories') res = await create_table_categories()
+  // console.log(`80: populated TABLE ${table_name} res_clear: `, res_clear)
 }
-
-
-//   let res_categories = await drop_table('categories')
-//   if (res_categories.ok) console.log('37 ', res_categories)
-//   else console.log('38, res_categories not okay')
-//   return
-// }
-
-// drop_table('categories').then(console.log('40: dropped categories'))
-
-// drop_table('categories_to_workouts')
-// drop_table('workouts')
-
-
-
-// db.run(`CREATE TABLE categories_to_workouts (
-//   id INTEGER PRIMARY KEY AUTOINCREMENT,
-//   category_name TEXT,
-//   workout_name TEXT)`, (err) => {
-//   if (err) {
-//     console.log('61: ERROR!', err)
-//   }
-//   console.log('63: left CREATE TABLE categories_to_workouts')
-// })
-
-
-
 // Load index file
 app.get('/', (req, res, next) => {
-  console.log('104 in app.get')
+  console.log('83 in app.get')
   readFile('./index.html', 'utf8', (err, result) => {
     console.log('71: reading index.html')
     if (err) {
       console.log('73: ', err)
       return
     }
-
     res.sendFile(path.resolve(base_dir, './index.html'))
 
   })
@@ -132,8 +106,8 @@ app.use(express.urlencoded({
 app.post('/get_categories', function (req, res) {
   clear_table('categories')
   var data_for_SQL = req.body;
-  data_list = JSON.parse(data_for_SQL.transfer_data)
-  console.log('89 data_list', data_list, '\n', data_list[0], data_list[1])
+  data_list = JSON.parse(data_for_SQL.categories_data)
+  // console.log('104 data_list', data_list, '\n', data_list[0], data_list[1])
 
   res.redirect('/')
 })

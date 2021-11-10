@@ -2,49 +2,72 @@
 // Global variables
 var workout_title, workout_link, workout_date
 
-console.log('html_to_database loaded')
-var workout_categoriesJSON = get_categories()
+console.log('5 html_to_database loaded')
+// This file reads the data from the training log html file and places in the form to pass the
+//the NodeJS file to load into the SQL database
+var SQL_dataJSON = get_categories()
+var SQL_data = JSON.parse(SQL_dataJSON)
 // TODO make dictionary - read how to get to NodeJS
-console.log("workout_categoriesJSON:\n", workout_categoriesJSON)
-document.getElementById("transfer_data").value = workout_categoriesJSON
+console.log("9 workout_categoriesJSON:\n", SQL_data[0])
+document.getElementById("categories_data").value = SQL_dataJSON
+// document.getElementById("categories_to_workouts_data").value = categories_to_workouts_dataJSON
+document.getElementById("categories_to_workouts_data").value = SQL_dataJSON
+
+// TODO: Clear input here?
 
 function get_categories() {
-    //TODO generalize for multiple categories
-    //TODO add to database
-
     //This function returns an array of categories to set up the database
     let xdetails = document.getElementsByTagName('details');
-    let x = document.getElementsByTagName('summary');
+    // let x = document.getElementsByTagName('summary');
     let workout_categories = [];
-    
-    for (i = 0; i < x.length; i++) {
-        let workout_row =[];
-        workout_row.push(xdetails[i].getElementsByTagName('summary')[0].innerText);
+    let categories_to_workouts = [];
+    let workout_name = [];
+
+    for (i = 0; i < xdetails.length; i++) {
+        let workout_row = [];
+        category_name = xdetails[i].getElementsByTagName('summary')[0].innerText
+        workout_row.push(category_name);
         workout_row.push(i);
         let isClosed = 1;
         if (xdetails[i].open == true) isClosed = 0;
         workout_row.push(isClosed);
         // add category closed
         let subheading = '';
-        if (xdetails[i].getElementsByClassName('subheading').length>0) {
+        if (xdetails[i].getElementsByClassName('subheading').length > 0) {
             subheading = xdetails[i].getElementsByClassName('subheading')[0].innerText
         }
         workout_row.push(subheading);
-        // add TODO subheading
         workout_categories.push(workout_row)
+        //categories_to_workouts
+        wdetails = xdetails[i].getElementsByClassName('link')
+        for (j = 0; j < wdetails.length; j++) {
+            workout_name = wdetails[j].innerText
+            categories_to_workouts.push([workout_name, category_name])
+        }
+        // console.log('44 categories_to_workouts\n', categories_to_workouts)
     }
     var workout_categoriesJSON = JSON.stringify(workout_categories)
-    console.log("22: ", workout_categories)
+    var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts)
+    SQL_data = [workout_categories, categories_to_workouts]
+    SQL_dataJSON = JSON.stringify(SQL_data)
+    // console.log("49: ", SQL_dataJSON)
     let options = {
         method: 'GET',
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
-        body: workout_categoriesJSON
-        // body: workout_categories
-    }
-    return workout_categoriesJSON
-    // return workout_categories
+        body: SQL_dataJSON
+}
+    // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts_data)
+    // console.log("53: ", categories_to_workouts_data)
+    //     options = {
+    //     method: 'GET',
+    //     headers: {
+    //         "Content-type": "application/json; charset=UTF-8"
+    //     },
+    //     body1: categories_to_workouts_dataJSON
+    // }
+    return SQL_dataJSON
 }
 // Maybe: try socketio
 // from https://stackoverflow.com/questions/7733848/how-do-i-pass-data-from-the-client-side-to-my-nodejs-server-using-socketio
