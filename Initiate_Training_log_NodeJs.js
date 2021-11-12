@@ -2,9 +2,9 @@
 // nodemon Initiate_Training_log_NodeJs.js
 // This program is for one-time use to the Training log database
 // Reference: Free Code Camp Coursehttps://www.youtube.com/watch?v=Oe421EPjeBE
+// Reference: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
 // TODO: do I need closed to open alert
-// TODO: find out why I have to submit twice
-// Problem is that the table inserts data before clearing is complete
+
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -25,7 +25,7 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
     console.log('Could not connect to database:', err)
   }
 })
-console.log('25: Connected to database')
+console.log('27: Connected to database')
 
 function create_table_categories() {
   db.run(`CREATE TABLE IF NOT EXISTS categories (
@@ -35,9 +35,8 @@ function create_table_categories() {
   isClosed INTEGER DEFAULT 0,
   category_subheading TEXT)`, (err) => {
     if (err) {
-      console.log('37: CREATE TABLE categories ERROR!', err)
+      console.log('CREATE TABLE categories ERROR!', err)
     }
-    console.log('39: left CREATE TABLE categories')
   })
 }
 
@@ -47,43 +46,38 @@ function create_table_categories_to_workouts() {
   category_name TEXT,
   workout_name TEXT)`, (err) => {
     if (err) {
-      console.log('49: ERROR!', err)
+      console.log('create_table_categories_to_workouts error', err)
     }
-    console.log('51: left CREATE TABLE categories_to_workouts')
   })
 }
 
 create_table_categories()
 create_table_categories_to_workouts()
 
-let clear_table = async function clear_table(table_names) {
-  // Clear all rows in table_names
-  // reference: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
+// Load index file
+app.get('/', (req, res, next) => {
+  readFile('./index.html', 'utf8', (err, result) => {
+    if (err) {
+      console.log('get index.html error: ', err)
+      return
+    }
+    res.sendFile(path.resolve(base_dir, './index.html'))
+  })
+})
+
+async function clear_table(table_names) {
+  // Clear all rows in table_names 
   try {
     for (let i = 0; i < table_names.length; i++) {
       console.log(table_names)
       table = table_names[i]
-      res_clear = db.run(`DELETE FROM ${table} WHERE EXISTS (SELECT * FROM categories)`);
+      res_clear = db.run(`DELETE FROM ${table} WHERE EXISTS (SELECT * FROM ${table})`);
       console.log(`'64 res_clear: ', ${table}`, res_clear)
     }
   } catch (e) {
-    console.log(`87: Could not Clear Table: ${table})`, res_clear)
+    console.log(`Could not Clear Table: ${table})`, res_clear)
   }
 }
-
-// Load index file
-app.get('/', (req, res, next) => {
-  console.log('95 in app.get')
-  readFile('./index.html', 'utf8', (err, result) => {
-    console.log('71: reading index.html')
-    if (err) {
-      console.log('73: ', err)
-      return
-    }
-    res.sendFile(path.resolve(base_dir, './index.html'))
-
-  })
-})
 
 app.use(express.urlencoded({
   extended: false
@@ -94,21 +88,24 @@ app.post('/get_categories', function (req, res) {
   // var data_for_SQL = req.body;
   // data_list = JSON.parse(data_for_SQL.categories_data)
   console.log('94 in get/categories')
-  
-let populate_tables = async function populate_tables() {
+  var data_for_SQL = req.body;
+  var data_list
+
+  async function populate_tables() {
     try {
-      var data_for_SQL = req.body;
       data_list = JSON.parse(data_for_SQL.categories_data)
-      clear_table(['categories', 'categories_to_workouts'])
+      var categories_cleared = clear_table(['categories'])
       await populate_categories(data_list)
+      var categories_to_workouts_cleared = clear_table(['categories_to_workouts'])
       await populate_categories_to_workouts(data_list)
     } catch (e) {
       console.log(`107 Error:`, e)
     }
+    console.log('104:', categories_cleared, categories_to_workouts_cleared)
   }
 
-let populate_categories = async function populate_categories(data_list) {
-  table ='categories'
+  async function populate_categories(data_list) {
+    table = 'categories'
     for (let i = 0; i < data_list[0].length; i++) {
       category_name = data_list[0][i][0];
       category_position = data_list[0][i][1];
@@ -119,7 +116,10 @@ let populate_categories = async function populate_categories(data_list) {
       //reference https://stackabuse.com/a-sqlite-tutorial-with-node-js/
       console.log(`120: added row ${table} ${category_name}, ${category_position}, ${isClosed}, ${category_subheading}`)
     }
-    console.log('125 running categories_to_workouts', 'array_length', data_list[1].length )
+
+  }
+
+  async function populate_categories_to_workouts(data_list) {
     table = 'categories_to_workouts'
     for (let i = 0; i < data_list[1].length; i++) {
       category_name = data_list[1][i][0];
@@ -128,22 +128,10 @@ let populate_categories = async function populate_categories(data_list) {
                     VALUES(?, ?)`, [category_name, workout_name]);
       if (i < 5) console.log(`131: added row to ${table} ${category_name}, ${workout_name}`)
     }
-  }
-
-  let populate_categories_to_workouts = async function populate_categories_to_workouts(data_list) {
-    console.log('125 running categories_to_workouts', 'array_length', data_list[1].length )
-    // table = 'categories_to_workouts'
-    // for (let i = 0; i < data_list[1].length; i++) {
-    //   category_name = data_list[1][i][0];
-    //   workout_name = data_list[1][i][1];
-    //   db.run(`INSERT INTO ${table} (category_name, workout_name) 
-    //                 VALUES(?, ?)`, [category_name, workout_name]);
-    //   if (i < 5) console.log(`131: added row to ${table} ${category_name}, ${workout_name}`)
-    // }
     // db.close()
   }
-populate_tables()
-res.redirect('/')
+  populate_tables()
+  res.redirect('/')
 })
 
 
