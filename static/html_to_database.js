@@ -18,7 +18,6 @@ document.getElementById("categories_to_workouts_data").value = SQL_dataJSON
 function get_categories() {
     //This function returns an array of categories to set up the database
     let xdetails = document.getElementsByTagName('details');
-    // let x = document.getElementsByTagName('summary');
     let workout_categories = [];
     let categories_to_workouts = [];
     let workout_name = [];
@@ -29,7 +28,12 @@ function get_categories() {
         workout_row.push(category_name);
         workout_row.push(i);
         let isClosed = 1;
+        
         if (xdetails[i].open == true) isClosed = 0;
+        else {
+            let newLocal = category_name + ' is closed. Workouts in ' + category_name + ' will not be added to the database'
+            // window.alert(newLocal)
+        }
         workout_row.push(isClosed);
         // add category closed
         let subheading = '';
@@ -42,12 +46,13 @@ function get_categories() {
         wdetails = xdetails[i].getElementsByClassName('link')
         for (j = 0; j < wdetails.length; j++) {
             workout_name = wdetails[j].innerText
-            categories_to_workouts.push([workout_name, category_name])
+            categories_to_workouts.push([category_name, workout_name])
         }
         // console.log('44 categories_to_workouts\n', categories_to_workouts)
     }
-    var workout_categoriesJSON = JSON.stringify(workout_categories)
-    var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts)
+    // Next two lines commented out 11/11/21
+    // var workout_categoriesJSON = JSON.stringify(workout_categories)
+    // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts)
     SQL_data = [workout_categories, categories_to_workouts]
     SQL_dataJSON = JSON.stringify(SQL_data)
     // console.log("49: ", SQL_dataJSON)
@@ -58,6 +63,7 @@ function get_categories() {
         },
         body: SQL_dataJSON
 }
+    // Next set of lines commented out 11/11/21
     // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts_data)
     // console.log("53: ", categories_to_workouts_data)
     //     options = {
@@ -69,18 +75,3 @@ function get_categories() {
     // }
     return SQL_dataJSON
 }
-// Maybe: try socketio
-// from https://stackoverflow.com/questions/7733848/how-do-i-pass-data-from-the-client-side-to-my-nodejs-server-using-socketio
-// Yes. Client side or server side you simply emit events and handle events.
-
-// client side:
-
-// var socket = io.connect('http://localhost');
-// socket.emit('my other event', { my: 'data' });
-// server side:
-
-// io.sockets.on('connection', function (socket) {
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-// });
