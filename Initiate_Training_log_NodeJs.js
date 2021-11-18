@@ -27,6 +27,7 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
 })
 console.log('27: Connected to database')
 
+// Create tables
 function create_table_categories() {
   db.run(`CREATE TABLE IF NOT EXISTS categories (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,8 +52,23 @@ function create_table_categories_to_workouts() {
   })
 }
 
+function create_table_workouts() {
+  db.run(`CREATE TABLE IF NOT EXISTS workouts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  workout_name TEXT,
+  workout_url TEXT,
+  date_array TEXT,
+  toRepeat INTEGER DEFAULT 0,
+  workout_comment TEXT)`, (err) => {
+    if (err) {
+      console.log('CREATE TABLE workouts ERROR!', err)
+    }
+  })
+}
+
 create_table_categories()
 create_table_categories_to_workouts()
+create_table_workouts()
 
 // Load index file
 app.get('/', (req, res, next) => {

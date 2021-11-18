@@ -10,17 +10,16 @@ var SQL_data = JSON.parse(SQL_dataJSON)
 // TODO make dictionary - read how to get to NodeJS
 console.log("9 workout_categoriesJSON:\n", SQL_data[0])
 document.getElementById("categories_data").value = SQL_dataJSON
-// document.getElementById("categories_to_workouts_data").value = categories_to_workouts_dataJSON
-document.getElementById("categories_to_workouts_data").value = SQL_dataJSON
 
 // TODO: Clear input here?
 
 function get_categories() {
     //This function returns an array of categories to set up the database
-    let xdetails = document.getElementsByTagName('details');
+    let xdetails = document.getElementsByTagName('details'); // array of all workouts in a category
     let workout_categories = [];
     let categories_to_workouts = [];
     let workout_name = [];
+    let workout_details = []
 
     for (i = 0; i < xdetails.length; i++) {
         let workout_row = [];
@@ -28,7 +27,7 @@ function get_categories() {
         workout_row.push(category_name);
         workout_row.push(i);
         let isClosed = 1;
-        
+
         if (xdetails[i].open == true) isClosed = 0;
         else {
             let newLocal = category_name + ' is closed. Workouts in ' + category_name + ' will not be added to the database'
@@ -44,16 +43,30 @@ function get_categories() {
         workout_categories.push(workout_row)
         //categories_to_workouts
         wdetails = xdetails[i].getElementsByClassName('link')
+        workout_list = xdetails[i].getElementsByClassName('workout')
         for (j = 0; j < wdetails.length; j++) {
             workout_name = wdetails[j].innerText
             categories_to_workouts.push([category_name, workout_name])
+            workout_url = wdetails[j].href
+            if (workout_list[j].getElementsByClassName('dates').length == 0) date_array = []
+            else date_array = workout_list[j].getElementsByClassName('dates')[0].innerText
+            if (workout_list[j].getElementsByClassName('comment').length == 0) workout_comment = ""
+            else workout_comment = workout_list[j].getElementsByClassName('comment')[0].innerText
+            if (workout_list[j].getElementsByTagName('strong').length == 0) toRepeat = 0
+            else toRepeat = 1
+            workout_details_row = [workout_name, workout_url, date_array, toRepeat, workout_comment]
+            workout_details.push(workout_details_row)
+            console.log('61 pause for coding', workout_details_row)
+
+
+
         }
         // console.log('44 categories_to_workouts\n', categories_to_workouts)
     }
     // Next two lines commented out 11/11/21
     // var workout_categoriesJSON = JSON.stringify(workout_categories)
     // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts)
-    SQL_data = [workout_categories, categories_to_workouts]
+    SQL_data = [workout_categories, categories_to_workouts, workout_details]
     SQL_dataJSON = JSON.stringify(SQL_data)
     // console.log("49: ", SQL_dataJSON)
     let options = {
@@ -62,7 +75,7 @@ function get_categories() {
             "Content-type": "application/json; charset=UTF-8"
         },
         body: SQL_dataJSON
-}
+    }
     // Next set of lines commented out 11/11/21
     // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts_data)
     // console.log("53: ", categories_to_workouts_data)
