@@ -7,8 +7,7 @@ console.log('5 html_to_database loaded')
 //the NodeJS file to load into the SQL database
 var SQL_dataJSON = get_categories()
 var SQL_data = JSON.parse(SQL_dataJSON)
-// TODO make dictionary - read how to get to NodeJS
-console.log("9 workout_categoriesJSON:\n", SQL_data[0])
+// Someday make dictionary - read how to get to NodeJS
 document.getElementById("categories_data").value = SQL_dataJSON
 
 // TODO: Clear input here?
@@ -27,14 +26,9 @@ function get_categories() {
         workout_row.push(category_name);
         workout_row.push(i);
         let isClosed = 1;
-
         if (xdetails[i].open == true) isClosed = 0;
-        else {
-            let newLocal = category_name + ' is closed. Workouts in ' + category_name + ' will not be added to the database'
-            // window.alert(newLocal)
-        }
         workout_row.push(isClosed);
-        // add category closed
+
         let subheading = '';
         if (xdetails[i].getElementsByClassName('subheading').length > 0) {
             subheading = xdetails[i].getElementsByClassName('subheading')[0].innerText
@@ -56,19 +50,12 @@ function get_categories() {
             else toRepeat = 1
             workout_details_row = [workout_name, workout_url, date_array, toRepeat, workout_comment]
             workout_details.push(workout_details_row)
-            console.log('61 pause for coding', workout_details_row)
-
-
-
-        }
-        // console.log('44 categories_to_workouts\n', categories_to_workouts)
+            // console.log('61 pause for coding', workout_details_row)
+         }
     }
-    // Next two lines commented out 11/11/21
-    // var workout_categoriesJSON = JSON.stringify(workout_categories)
-    // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts)
+
     SQL_data = [workout_categories, categories_to_workouts, workout_details]
     SQL_dataJSON = JSON.stringify(SQL_data)
-    // console.log("49: ", SQL_dataJSON)
     let options = {
         method: 'GET',
         headers: {
@@ -76,15 +63,5 @@ function get_categories() {
         },
         body: SQL_dataJSON
     }
-    // Next set of lines commented out 11/11/21
-    // var categories_to_workouts_dataJSON = JSON.stringify(categories_to_workouts_data)
-    // console.log("53: ", categories_to_workouts_data)
-    //     options = {
-    //     method: 'GET',
-    //     headers: {
-    //         "Content-type": "application/json; charset=UTF-8"
-    //     },
-    //     body1: categories_to_workouts_dataJSON
-    // }
     return SQL_dataJSON
 }

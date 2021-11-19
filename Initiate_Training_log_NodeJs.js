@@ -25,7 +25,7 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
     console.log('Could not connect to database:', err)
   }
 })
-console.log('27: Connected to database')
+console.log('Connected to database')
 
 // Create tables
 function create_table_categories() {
@@ -103,7 +103,7 @@ app.use(express.urlencoded({
 app.post('/get_categories', function (req, res) {
   // var data_for_SQL = req.body;
   // data_list = JSON.parse(data_for_SQL.categories_data)
-  console.log('94 in get/categories')
+  console.log('in get/categories')
   var data_for_SQL = req.body;
   var data_list
 
@@ -114,10 +114,11 @@ app.post('/get_categories', function (req, res) {
       await populate_categories(data_list)
       var categories_to_workouts_cleared = clear_table(['categories_to_workouts'])
       await populate_categories_to_workouts(data_list)
+      var workouts_cleared = clear_table(['workouts'])
+      await populate_workouts(data_list)
     } catch (e) {
       console.log(`107 Error:`, e)
     }
-    console.log('104:', categories_cleared, categories_to_workouts_cleared)
   }
 
   async function populate_categories(data_list) {
@@ -132,7 +133,6 @@ app.post('/get_categories', function (req, res) {
       //reference https://stackabuse.com/a-sqlite-tutorial-with-node-js/
       console.log(`120: added row ${table} ${category_name}, ${category_position}, ${isClosed}, ${category_subheading}`)
     }
-
   }
 
   async function populate_categories_to_workouts(data_list) {
@@ -143,8 +143,21 @@ app.post('/get_categories', function (req, res) {
       db.run(`INSERT INTO ${table} (category_name, workout_name) 
                     VALUES(?, ?)`, [category_name, workout_name]);
       if (i < 5) console.log(`131: added row to ${table} ${category_name}, ${workout_name}`)
+    } 
+  }
+
+  async function populate_workouts(data_list) {
+    table = 'workouts'
+    for (let i = 0; i < data_list[2].length; i++) {
+      workout_name = data_list[2][i][0];
+      workout_url = data_list[2][i][1];
+      date_array = data_list[2][i][2];
+      toRepeat = data_list[2][i][3];
+      workout_comment = data_list[2][i][4];
+      db.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, toRepeat, workout_comment) 
+                    VALUES(?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, toRepeat, workout_comment]);
+      if (i < 5) console.log(`157: added row to ${table} ${category_name}, ${workout_url}, ${date_array}, ${toRepeat}, ${workout_comment}`)
     }
-    // db.close()
   }
   populate_tables()
   res.redirect('/')
