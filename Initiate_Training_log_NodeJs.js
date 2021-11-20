@@ -3,7 +3,6 @@
 // This program is for one-time use to the Training log database
 // Reference: Free Code Camp Coursehttps://www.youtube.com/watch?v=Oe421EPjeBE
 // Reference: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
-// TODO: do I need closed to open alert
 
 const express = require('express')
 const path = require('path')

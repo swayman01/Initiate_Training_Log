@@ -39,7 +39,8 @@ function get_categories() {
         wdetails = xdetails[i].getElementsByClassName('link')
         workout_list = xdetails[i].getElementsByClassName('workout')
         for (j = 0; j < wdetails.length; j++) {
-            workout_name = wdetails[j].innerText
+            // Thanks to https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
+            workout_name = wdetails[j].innerText.replace(/\s\s+/g, ' ')
             categories_to_workouts.push([category_name, workout_name])
             workout_url = wdetails[j].href
             if (workout_list[j].getElementsByClassName('dates').length == 0) date_array = []
@@ -50,7 +51,6 @@ function get_categories() {
             else toRepeat = 1
             workout_details_row = [workout_name, workout_url, date_array, toRepeat, workout_comment]
             workout_details.push(workout_details_row)
-            // console.log('61 pause for coding', workout_details_row)
          }
     }
 
