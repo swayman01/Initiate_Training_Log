@@ -25,6 +25,7 @@ function get_categories() {
         category_name = xdetails[i].getElementsByTagName('summary')[0].innerText
         workout_row.push(category_name);
         workout_row.push(i);
+        // console.log('28 workout_row: ',i, workout_row[0])
         let isClosed = 1;
         if (xdetails[i].open == true) isClosed = 0;
         workout_row.push(isClosed);
@@ -37,14 +38,25 @@ function get_categories() {
         workout_categories.push(workout_row)
         //categories_to_workouts
         wdetails = xdetails[i].getElementsByClassName('link')
+        // console.log('41 i, xdetails[i]: ', i, xdetails[i])
         workout_list = xdetails[i].getElementsByClassName('workout')
         for (j = 0; j < wdetails.length; j++) {
             // Thanks to https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
             workout_name = wdetails[j].innerText.replace(/\s\s+/g, ' ')
             categories_to_workouts.push([category_name, workout_name])
             workout_url = wdetails[j].href
+            // These lines helped debug the index.html file. One workout was
+            // missing <li> tags
+            console.log('50 ',j, category_name, workout_name)
+            console.log('51 wdetails[j]: ', wdetails[j].innerText)
+            console.log('52 workout_list[j]: ', workout_list[j].innerText)
+            console.log(' ')
+
+            if(workout_list[j].getElementsByClassName('dates'))
             if (workout_list[j].getElementsByClassName('dates').length == 0) date_array = []
-            else date_array = workout_list[j].getElementsByClassName('dates')[0].innerText
+            else {
+                date_array = workout_list[j].getElementsByClassName('dates')[0].innerText
+            }
             if (workout_list[j].getElementsByClassName('comment').length == 0) workout_comment = ""
             else workout_comment = workout_list[j].getElementsByClassName('comment')[0].innerText
             if (workout_list[j].getElementsByTagName('strong').length == 0) toRepeat = 0
