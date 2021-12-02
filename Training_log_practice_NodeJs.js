@@ -51,7 +51,7 @@ INNER JOIN categories_to_workouts
 on categories.category_name = categories_to_workouts.category_name
 INNER JOIN workouts
 on categories_to_workouts.workout_name = workouts.workout_name
-ORDER BY category_position
+ORDER BY category_position, last_date DESC
 
 `
 workout_array = []
@@ -63,7 +63,7 @@ db.all(join_categories_to_workouts, [], (err, rows) => {
   workout_array = rows
   rows.forEach((row) => {
     i+=1;
-    console.log('51: ',i, row.category_position, row.category_name, row.workout_name);
+    console.log('66: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
   });
 })
 console.log('56: or here')
