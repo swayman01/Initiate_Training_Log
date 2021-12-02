@@ -44,23 +44,29 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
 })
 console.log('Connected to database')
 var join_categories_to_workouts = `
-SELECT * FROM categories 
+SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
+workout_url, date_array, toRepeat, workout_comment
+FROM categories 
 INNER JOIN categories_to_workouts 
 on categories.category_name = categories_to_workouts.category_name
+INNER JOIN workouts
+on categories_to_workouts.workout_name = workouts.workout_name
+ORDER BY category_position
+
 `
+workout_array = []
 db.all(join_categories_to_workouts, [], (err, rows) => {
   if (err) {
     throw(err)
   }
   i = 0;
+  workout_array = rows
   rows.forEach((row) => {
     i+=1;
     console.log('51: ',i, row.category_position, row.category_name, row.workout_name);
   });
-  console.log('56: work with array here')
-
 })
-
+console.log('56: or here')
 // db.all('SELECT * FROM categories', [], (err, rows) => {
 //   if (err) {
 //     throw(err)
