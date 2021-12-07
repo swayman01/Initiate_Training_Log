@@ -1,5 +1,6 @@
 // cd /Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice
 // nodemon Training_log_practice_NodeJs.js
+// TODO: Check out repeats
 const sqlite3 = require('sqlite3').verbose();
 const express = require('express')
 const path = require('path')
@@ -32,7 +33,7 @@ readFile(head_input, 'utf8', (err, data) => {
 // Load header file
 app.get('/', (req, res, next) => {
   readFile('./index.html', 'utf8', (err, result) => {
-    res.end(training_log_head_html)
+    res.end(training_log_head_html+workouts_html)
   })
 })
 
@@ -40,64 +41,99 @@ app.get('/', (req, res, next) => {
 var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
   if (err) {
     console.log('Could not connect to database:', err)
+  } else console.log('43: Connected to database')
+})
+
+var workout_array = []
+workout_array
+//TODO Add Workout Length
+let retrieve_data = async function retrieve_data() {
+  try {
+    let join_categories_to_workouts = `
+    SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
+    workout_url, date_array, toRepeat, workout_comment
+    FROM categories 
+    INNER JOIN categories_to_workouts 
+    on categories.category_name = categories_to_workouts.category_name
+    INNER JOIN workouts
+    on categories_to_workouts.workout_name = workouts.workout_name
+    ORDER BY category_position, last_date DESC
+    `
+    db.all(join_categories_to_workouts, [], (err, rows) => {
+      // if (err) {
+      //   throw(err)
+      // }
+      i = 0;
+      workout_array = rows
+      rows.forEach((row) => {
+        i+=1;
+        workout_array.push(row)
+        // console.log('68: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
+      });
+      console.log('70: ', workout_array)
+      write_html(workout_array)
+    })
+  } catch (e) {
+    console.log('Did not retrieve data:)', e)
   }
-})
-console.log('Connected to database')
-var join_categories_to_workouts = `
-SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
-workout_url, date_array, toRepeat, workout_comment
-FROM categories 
-INNER JOIN categories_to_workouts 
-on categories.category_name = categories_to_workouts.category_name
-INNER JOIN workouts
-on categories_to_workouts.workout_name = workouts.workout_name
-ORDER BY category_position, last_date DESC
-
-`
-workout_array = []
-db.all(join_categories_to_workouts, [], (err, rows) => {
-  if (err) {
-    throw(err)
-  }
-  i = 0;
-  workout_array = rows
-  rows.forEach((row) => {
-    i+=1;
-    console.log('66: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
-  });
-})
-console.log('56: or here')
-// db.all('SELECT * FROM categories', [], (err, rows) => {
-//   if (err) {
-//     throw(err)
-//   }
-//   rows.forEach((row) => {
-//     console.log('51: ', row.category_name);
-//   });
-
-// })
-
-// app.all('*', (req, res) => {
-//   res.status(404).send('resource not found')
-// })
-
-app.listen(port, () => {
-  console.log(`server is listening on port ${port} ....`)
-})
-
-function write_details() {
-
 }
 
-// Sync version
-// global.html_head = readFileSync('./head_input.html', 'utf8')
-// global.html_body_1 = readFileSync('./body_1.html', 'utf8')
-// writeFileSync(
-//   './sync_test.html',
-//   `${html_head}, ${html_body_1}`,
-//   { flag: 'a' }
-// )
-// console.log('27: completed sync test')
+var workouts_html = ''
+function write_html(workout_array) {
+  console.log('80 in workout_array')
+  var last_category = -1
+  for (let i=0; i < workout_array.length; i++) {
+    if (last_category != workout_array[i].category_position) {
+      if (last_category != -1) {
+        write_details_end_html()
+      }
+      write_details_beginning_html(workout_array[i])
+    }
+    write_workouts(workout_array[i])
+    last_category = workout_array[i].category_position
+  
+  }
+  write_details_end_html()
+  console.log(workouts_html)
+}
+
+function write_details_end_html() {
+  console.log('</ul></details>')
+  workouts_html = workouts_html + '</ul></details>'
+}
+
+function write_details_beginning_html(workout_row) {
+  console.log(`<details open><summary>${workout_row.category_name}</summary><ul class="workouts">`)
+  workouts_html = workouts_html + `<details open><summary>${workout_row.category_name}</summary><ul class="workouts">`
+}
+
+function write_workouts(workout_row) {
+  //TODO Add Strong to name
+  //TODO Add dates routine
+  workout = `
+  <li class="workout">
+                <a href="${workout_row.workout_url}"
+                    target="_blank" rel="noopener noreferrer" class="link">${workout_row.workout_name}</a>
+                </span>
+                <span class="length">$workout_row.workout_length}</span>
+                <span class="separator">-</span>
+                <span class="dates">${workout_row.date_array}</span>
+                <span class="comments">${workout_row.workout_comment}</span>
+            </li>
+  `
+  workouts_html = workouts_html + workout
+}
+
+
+
+// x = retrieve_data()
+retrieve_data()
+
+app.listen(port, () => {
+  console.log(`132: server is listening on port ${port} ....`)
+})
+
+
 
 //Async version
 // Read files
@@ -202,13 +238,3 @@ function write_details() {
 //   })
 //   }
 // TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
-
-
-
-
-
-
-
-
-
-
