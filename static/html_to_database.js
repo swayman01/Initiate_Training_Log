@@ -1,8 +1,9 @@
 // This doesn't work from html_to_database.js because the html file is blank
 // Global variables
 var workout_title, workout_link, workout_date
+const DEBUG = 0
 
-console.log('5 html_to_database loaded')
+if (DEBUG) console.log('5 html_to_database loaded')
 // This file reads the data from the training log html file and places in the form to pass the
 //the NodeJS file to load into the SQL database
 var SQL_dataJSON = get_categories()
@@ -47,10 +48,12 @@ function get_categories() {
             workout_url = wdetails[j].href
             // These lines helped debug the index.html file. One workout was
             // missing <li> tags
+            if (DEBUG) {
             console.log('50 ',j, category_name, workout_name)
             console.log('51 wdetails[j]: ', wdetails[j].innerText)
             console.log('52 workout_list[j]: ', workout_list[j].innerText)
             console.log(' ')
+        }
 
             if(workout_list[j].getElementsByClassName('dates'))
             if (workout_list[j].getElementsByClassName('dates').length == 0) date_array = []
