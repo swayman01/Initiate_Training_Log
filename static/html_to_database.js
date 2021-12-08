@@ -60,6 +60,8 @@ function get_categories() {
             else {
                 date_array = workout_list[j].getElementsByClassName('dates')[0].innerText
             }
+            if (workout_list[j].getElementsByClassName('length').length == 0) workout_length = ""
+            else workout_length = workout_list[j].getElementsByClassName('length')[0].innerText
             if (workout_list[j].getElementsByClassName('comment').length == 0) workout_comment = ""
             else workout_comment = workout_list[j].getElementsByClassName('comment')[0].innerText
             if (workout_list[j].getElementsByTagName('strong').length == 0) toRepeat = 0

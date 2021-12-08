@@ -51,7 +51,7 @@ let retrieve_data = async function retrieve_data() {
   try {
     let join_categories_to_workouts = `
     SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
-    workout_url, date_array, toRepeat, workout_comment
+    workout_url, date_array, toRepeat, workout_length, workout_comment
     FROM categories 
     INNER JOIN categories_to_workouts 
     on categories.category_name = categories_to_workouts.category_name
@@ -115,7 +115,7 @@ function write_workouts(workout_row) {
                 <a href="${workout_row.workout_url}"
                     target="_blank" rel="noopener noreferrer" class="link">${workout_row.workout_name}</a>
                 </span>
-                <span class="length">$workout_row.workout_length}</span>
+                <span class="length">${workout_row.workout_length}</span>
                 <span class="separator">-</span>
                 <span class="dates">${workout_row.date_array}</span>
                 <span class="comments">${workout_row.workout_comment}</span>
