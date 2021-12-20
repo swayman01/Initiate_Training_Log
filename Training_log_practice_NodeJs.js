@@ -1,6 +1,7 @@
 // cd /Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice
 // nodemon Training_log_practice_NodeJs.js
-// TODO: Check out repeats
+// TODO: Check out repeats after Bare Minimum
+//   Add body tags and javascript tags
 const sqlite3 = require('sqlite3').verbose();
 const express = require('express')
 const path = require('path')
@@ -51,7 +52,7 @@ let retrieve_data = async function retrieve_data() {
   try {
     let join_categories_to_workouts = `
     SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
-    workout_url, date_array, toRepeat, workout_length, workout_comment
+    workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
     FROM categories 
     INNER JOIN categories_to_workouts 
     on categories.category_name = categories_to_workouts.category_name
@@ -70,7 +71,7 @@ let retrieve_data = async function retrieve_data() {
         workout_array.push(row)
         // console.log('68: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
       });
-      console.log('70: ', workout_array)
+      // console.log('70: ', workout_array)
       write_html(workout_array)
     })
   } catch (e) {
@@ -87,31 +88,32 @@ function write_html(workout_array) {
       if (last_category != -1) {
         write_details_end_html()
       }
-      write_details_beginning_html(workout_array[i])
+      write_details_beginning_html(workout_array[i]) 
     }
     write_workouts(workout_array[i])
     last_category = workout_array[i].category_position
   
   }
   write_details_end_html()
-  console.log(workouts_html)
+  // console.log("98:\n", workouts_html)
 }
 
 function write_details_end_html() {
-  console.log('</ul></details>')
   workouts_html = workouts_html + '</ul></details>'
 }
 
 function write_details_beginning_html(workout_row) {
-  console.log(`<details open><summary>${workout_row.category_name}</summary><ul class="workouts">`)
-  workouts_html = workouts_html + `<details open><summary>${workout_row.category_name}</summary><ul class="workouts">`
+  // console.log(`<details open><summary>${workout_row.category_name}</summary><ul class="workouts">`)
+  workouts_html = workouts_html + `<details open><summary>${workout_row.category_name}</summary>
+  <ul class="workouts">`
 }
 
 function write_workouts(workout_row) {
   //TODO Add Strong to name
   //TODO Add dates routine
   workout = `
-  <li class="workout">
+  <li id="wo_${workout_row.id}" "class="workout">
+                <span id="wos_${workout_row.id}" class="push_button">ADD</span>
                 <a href="${workout_row.workout_url}"
                     target="_blank" rel="noopener noreferrer" class="link">${workout_row.workout_name}</a>
                 </span>
