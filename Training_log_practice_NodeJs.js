@@ -1,7 +1,10 @@
 // cd /Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice
 // nodemon Training_log_practice_NodeJs.js
 // TODO: Check out repeats after Bare Minimum
+//  Read .css file here and add to variable
 //   Add body tags and javascript tags
+// TODO: Organize routes - https://stackoverflow.com/questions/59681974/how-to-organize-routes-in-nodejs-express-app
+//  and https://vegibit.com/node-js-routes-tutorial/
 const sqlite3 = require('sqlite3').verbose();
 const express = require('express')
 const path = require('path')
@@ -18,6 +21,8 @@ const {
 // const { readFile, writeFile, appendFile } = require('fs').promises// - TODO - this creates base program to crash
 const port = 5001
 
+app.use(express.urlencoded({extended:false}))
+
 //Read in the head for html
 head_input = './head_input.html'
 var training_log_head_html = ''
@@ -31,11 +36,22 @@ readFile(head_input, 'utf8', (err, data) => {
   // console.log('27: ', training_log_head_html)
 })
 
+// TODO: Move to routes director
 // Load header file
 app.get('/', (req, res, next) => {
   readFile('./index.html', 'utf8', (err, result) => {
     res.end(training_log_head_html+workouts_html)
   })
+})
+
+// Retrieve workout_id
+app.post('/add_date.html', (req,res) => {
+  console.log('49 /login')
+  console.log('50 ', req.body)
+  const {name} =req.body
+  console.log('work_out_id is:', req.body.name)
+  console.log('56 body: ', req.body)
+  res.send(req.body.name)
 })
 
 // Connect to database

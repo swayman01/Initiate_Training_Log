@@ -5,11 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practice_head</title>
-    <!-- <link rel="stylesheet" type="text/css" href="/Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice/public/static/Training_log.css" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="/public/static/Training_log.css" crossorigin="anonymous"rs > -->
+    <title>date_exp</title>
     <style>
-        /* Other white colors: https://encycolorpedia.com/fdf5e8 */
 body {
     background-color: lightgray;
     font-family: Arial;
@@ -58,14 +55,16 @@ body {
   /*# sourceMappingURL=Training_log.css.map */
   
     </style>
-    <!-- TODO: Fix Refused to apply style from 'http://localhost:5001/Training_log.css' 
-    because its MIME type ('text/html') is not a supported stylesheet MIME type, 
-    and strict MIME checking is enabled. -->
-    <!-- <link type="text/javascript" href="./practice.js"> -->
-    <!-- <script type="text/javascript" src="/practice.js"></script> -->
-    <!-- Cannot call javascript files on server from Node.js -->
 </head>
 <body>
- <h1>Practice Line to show that the head has loaded</h1>   
+ <h1>Practice Line to show that the head has loaded</h1>  
+ <form action="/add_date.html" method="POST">
+  <h3>Traditional Form</h3>
+  <div class="form-row">
+    <label for="name"> workout </label>
+    <input type="text" name="name" id="name" autocomplete="false" />
+  </div>
+  <button type="submit" class="block">submit</button>
+</form> 
 </body>
 </html>
