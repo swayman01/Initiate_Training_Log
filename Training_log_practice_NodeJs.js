@@ -9,8 +9,8 @@ const sqlite3 = require('sqlite3').verbose();
 const express = require('express')
 const path = require('path')
 const app = express()
-const axios = require('axios');
-const base_dir = '/Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice'
+// TODO update base_dir to avoid hardcoded path
+const base_dir = path.resolve(__dirname)
 const {
   readFile,
   readFileSync,
@@ -38,6 +38,7 @@ readFile(head_input, 'utf8', (err, data) => {
 
 // TODO: Move to routes director
 // Load header file
+
 app.get('/', (req, res, next) => {
   readFile('./index.html', 'utf8', (err, result) => {
     res.end(training_log_head_html+workouts_html)
@@ -46,11 +47,8 @@ app.get('/', (req, res, next) => {
 
 // Retrieve workout_id
 app.post('/add_date.html', (req,res) => {
-  console.log('49 /login')
-  console.log('50 ', req.body)
-  const {name} =req.body
-  console.log('work_out_id is:', req.body.name)
-  console.log('56 body: ', req.body)
+  console.log('50 work_out_id is:', req.body.name)
+// Put code here
   res.send(req.body.name)
 })
 
@@ -127,9 +125,16 @@ function write_details_beginning_html(workout_row) {
 function write_workouts(workout_row) {
   //TODO Add Strong to name
   //TODO Add dates routine
+  // Put button and form on one line
+  var add_date = `
+  <form action="/add_date.html" method="POST">
+    <input type="hidden" name="name" id="name" autocomplete="false" value=${workout_row.id}>
+  <button type="submit" class="block">+</button>
+</form> 
+  `
   workout = `
-  <li id="wo_${workout_row.id}" "class="workout">
-                <span id="wos_${workout_row.id}" class="push_button">ADD</span>
+  <li id="wo_${workout_row.id}" "class="workout" >
+                <span id="wos_${workout_row.id}" class="push_button" "display:inline-block">${add_date}
                 <a href="${workout_row.workout_url}"
                     target="_blank" rel="noopener noreferrer" class="link">${workout_row.workout_name}</a>
                 </span>
