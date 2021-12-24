@@ -1,5 +1,6 @@
 // cd /Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice
 // nodemon Training_log_practice_NodeJs.js
+// TODO:Check out occasional name not defined in title of add_date.html
 // TODO: Check out repeats after Bare Minimum
 //  Read .css file here and add to variable
 //   Add body tags and javascript tags
@@ -20,14 +21,8 @@ const {
 } = require('fs')
 // const { readFile, writeFile, appendFile } = require('fs').promises// - TODO - this creates base program to crash
 const port = 5001
-const child_process = require('child_process'); // For debugging until I get async to work
 
-// Global Variables
-var workoutGLOBAL
-
-app.use(express.urlencoded({
-  extended: false
-}))
+app.use(express.urlencoded({extended:false}))
 
 //Read in the head for html
 head_input = './head_input.html'
@@ -47,7 +42,7 @@ readFile(head_input, 'utf8', (err, data) => {
 
 app.get('/', (req, res, next) => {
   readFile('./index.html', 'utf8', (err, result) => {
-    res.end(training_log_head_html + workouts_html)
+    res.end(training_log_head_html+workouts_html)
   })
 })
 
@@ -55,33 +50,44 @@ app.get('/', (req, res, next) => {
 app.post('/add_date.html', (req, res) => {
   var workout_id = req.body.name
   console.log('56 workout_id ', workout_id, Date.now())
+  // Moved from retrieve_workout
+  let select_workout = `
+    SELECT workout_name, workout_url, date_array, toRepeat, workout_length, toRepeat, workout_comment, workouts.id
+    FROM workouts 
+    WHERE id = ${workout_id}
+    LIMIT 1
+    `
+      db.get(select_workout, [], (err, row) => {
+        workout = row
+        console.log('61 workout in retrieve_workout', workout, row.workout_name)
+      })
   // retrieve_workout(workout_id).then(() =>{
   // console.log('58 x: ',x, workoutGLOBAL, Date.now())})
 
-  retrieve_workout(workout_id)
-  console.log('61 x: ',x, workoutGLOBAL, Date.now())
+  // retrieve_workout(workout_id)
+  // console.log('61 x: ',x, workoutGLOBAL, Date.now())
 
   // Moved to retrieve_workout 12/24/21
-//   var add_date_html = `
-//   <!DOCTYPE html>
-// <html>
-// <body>
+  var add_date_html = `
+  <!DOCTYPE html>
+<html>
+<body>
 
-// <h2>Add Date to Workout Name (use {})</h2>
+<h2>Add Date to ${workout.workout_name}</h2>
 
-// <form action="/update_db.html" method="POST"">
-//   <label for="date">Workout Date:</label><br>
-//   <input type="text" id="work_out_date" name="work_out_date" value="Today's Date"><br>
-//   <input type="submit" value="Submit New Date">
-// </form> 
+<form action="/update_db.html" method="POST"">
+  <label for="date">Workout Date:</label><br>
+  <input type="text" id="work_out_date" name="work_out_date" value="Today's Date"><br>
+  <input type="submit" value="Submit New Date">
+</form> 
 
-// <div><span>Cancel Button</span><span>Edit Workout Button</span><span>Add New Workout Button</span></div>
+<div><span>Cancel Button</span><span>Edit Workout Button</span><span>Add New Workout Button</span></div>
 
-// </body>
-// </html>
+</body>
+</html>
 
-//   `
-//   res.end(add_date_html)
+  `
+  res.end(add_date_html)
   // end Moved to retrieve_workout 12/24/21
 
   // res.sendFile(path.resolve(base_dir, './add_date.html'))
@@ -89,7 +95,7 @@ app.post('/add_date.html', (req, res) => {
 })
 
 app.post('/update_db.html', (req, res) => {
-  console.log('58 update database here', workoutGlobal)
+  console.log('58 update database here', workout)
 
 
   // res.sendFile(path.resolve(base_dir, './add_date.html'))
@@ -104,7 +110,8 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
 })
 
 var workout_array = []
-// workout_array
+workout_array
+//TODO Add Workout Length
 let retrieve_data = async function retrieve_data() {
   try {
     let join_categories_to_workouts = `
@@ -124,7 +131,7 @@ let retrieve_data = async function retrieve_data() {
       i = 0;
       workout_array = rows
       rows.forEach((row) => {
-        i += 1;
+        i+=1;
         workout_array.push(row)
         // console.log('68: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
       });
@@ -134,7 +141,6 @@ let retrieve_data = async function retrieve_data() {
   } catch (e) {
     console.log('Did not retrieve data:)', e)
   }
-  // return workout_array
 }
 
 // let retrieve_workout = async function retrieve_workout(workout_id) {
@@ -147,8 +153,8 @@ let retrieve_data = async function retrieve_data() {
     LIMIT 1
     `
       db.get(select_workout, [], (err, row) => {
-        workoutGLOBAL = row
-        console.log('145 workout in retrieve_workout', workoutGLOBAL, Date.now())
+        workout = row
+        console.log('145 workout in retrieve_workout', workout, Date.now())
 // Moved from xxx 12/24/21
 var add_date_html = `
   <!DOCTYPE html>
@@ -181,20 +187,19 @@ var add_date_html = `
   }
 
 var workouts_html = ''
-
 function write_html(workout_array) {
   console.log('80 in workout_array')
   var last_category = -1
-  for (let i = 0; i < workout_array.length; i++) {
+  for (let i=0; i < workout_array.length; i++) {
     if (last_category != workout_array[i].category_position) {
       if (last_category != -1) {
         write_details_end_html()
       }
-      write_details_beginning_html(workout_array[i])
+      write_details_beginning_html(workout_array[i]) 
     }
     write_workouts(workout_array[i])
     last_category = workout_array[i].category_position
-
+  
   }
   write_details_end_html()
   // console.log("98:\n", workouts_html)
@@ -237,13 +242,115 @@ function write_workouts(workout_row) {
 
 
 
-x = retrieve_data()
-// console.log('line 186 retrieve_data', x)
-// console.log('187', workout_array)
+// x = retrieve_data()
+retrieve_data()
 
 app.listen(port, () => {
   console.log(`132: server is listening on port ${port} ....`)
 })
 
-  
+
+
+//Async version
+// Read files
+// Modify header (if needed)
+// Write html file when both files are read and modified
+
+
+// var head_input = './head_input.html'
+// var body_1 = './body_1.html'
+// write_head_and_body_1('./head_input.html', './body_1.html')
+// TODO Look for way to pass arguments
+// Paused at 3:04:17
+//End Async test
+
+
+// app.use(express.static(path.join(base_dir, 'static')))
+// app.use(express.json())
+
+// Load index file
+// app.get('/', (req, res, next) => {
+//   readFile('./index.html', 'utf8', (err, result) => {
+//     console.log('65: reading index.html')
+//     if (err) {
+//       console.log(err)
+//       return
+//     }
+//     res.sendFile(path.resolve(base_dir, './index.html'))
+//   })
+// })
+
+// readFile('./body_1.html', 'utf8', (err, result) => {
+//   //callback function executes when done
+//   if (err) {
+//     console.log('110:\n', err);
+//   }
+//   body_1 = result
+//   console.log('41 inside function\n', body_1)
+//   })
+// read_modify_write_header_sync('./head_input.html')
+
+
+// app.use(express.urlencoded({
+//   extended: false
+// })) //parse form data
+
+//         var data_for_SQL = req.body;
+//         // console.log(' 47 req.body\n', req.body)
+//         // console.log(' 48 data_for_SQL:\n', data_for_SQL)
+//         // console.log(' 49 data_for_SQL.transfer_data[0]:\n', data_for_SQL.transfer_data[0])
+//         data_list = JSON.parse(data_for_SQL.transfer_data) 
+//         console.log('152 data_list', data_list, '\n', data_list[0], data_list[1])
+//         for (let i=0; i<data_list.length-1; i++) {
+//           category_name = data_list[i][0];
+//           category_position = data_list[i][1];
+//           isClosed = data_list[i][2];
+//           category_subheading = data_list[i][3];
+//           db.run(`INSERT INTO categories (category_name, category_position, isClosed, category_subheading) 
+//             VALUES(?, ?, ?, ?)`,[category_name, category_position, isClosed, category_subheading], (err) => {
+//             //reference https://stackabuse.com/a-sqlite-tutorial-with-node-js/{
+//               if (err) {
+//                   console.log(err.message)
+//               } else {
+//                   console.log('added row')
+//               }
+//             })}
+//             db.close()
+//         res.redirect('/')
+//       })
+
+
+// function read_modify_write_header_sync(head_input) {
+//   readFile(head_input, 'utf8', (err, result) => {
+//     //callback function executes when done
+//     if (err) {
+//       console.log("75:\n", err);
+//     }
+//     // console.log("result:\n", result, "end of result")
+//     //     const first = result // How to sequence Asynchronous actions
+//     //     readFile('./HelloWorld.js', 'utf8', (err, result) => {
+//     //         if (err) {
+//     //             console.log(err);
+//     //             return
+//     //         }
+//     //         // console.log("result:\n", result)
+//     //         const second = result
+//     //         writeFile(
+//     //             './result_async.txt',
+//     //             `Here is the result: ${first}, ${second}`,
+//     //             {flag: 'a'},
+//     //             (err,result)=>{
+//     //             }
+//     //  
+
+//     html_head = result
+//     writeFile('./test.html', html_head, (err,result)=>{
+
+//     })
+//     appendFileSync('./test.html', html_head, (err,result)=>{
+
+//     })
+//     console.log('96 inside function\n', html_head)
+//   })
+//   }
 // TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
