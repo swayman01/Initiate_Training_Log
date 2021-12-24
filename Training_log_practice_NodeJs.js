@@ -57,28 +57,32 @@ app.post('/add_date.html', (req, res) => {
   console.log('56 workout_id ', workout_id, Date.now())
   // retrieve_workout(workout_id).then(() =>{
   // console.log('58 x: ',x, workoutGLOBAL, Date.now())})
-  retrieve_workout(workout_id).then(workoutGLOBAL => console.log('60: ', workoutGLOBAL))
+
+  retrieve_workout(workout_id)
   console.log('61 x: ',x, workoutGLOBAL, Date.now())
-  var add_date_html = `
-  <!DOCTYPE html>
-<html>
-<body>
 
-<h2>Add Date to Workout Name (use {})</h2>
+  // Moved to retrieve_workout 12/24/21
+//   var add_date_html = `
+//   <!DOCTYPE html>
+// <html>
+// <body>
 
-<form action="/update_db.html" method="POST"">
-  <label for="date">Workout Date:</label><br>
-  <input type="text" id="work_out_date" name="work_out_date" value="Today's Date"><br>
-  <input type="submit" value="Submit New Date">
-</form> 
+// <h2>Add Date to Workout Name (use {})</h2>
 
-<div><span>Cancel Button</span><span>Edit Workout Button</span><span>Add New Workout Button</span></div>
+// <form action="/update_db.html" method="POST"">
+//   <label for="date">Workout Date:</label><br>
+//   <input type="text" id="work_out_date" name="work_out_date" value="Today's Date"><br>
+//   <input type="submit" value="Submit New Date">
+// </form> 
 
-</body>
-</html>
+// <div><span>Cancel Button</span><span>Edit Workout Button</span><span>Add New Workout Button</span></div>
 
-  `
-  res.end(add_date_html)
+// </body>
+// </html>
+
+//   `
+//   res.end(add_date_html)
+  // end Moved to retrieve_workout 12/24/21
 
   // res.sendFile(path.resolve(base_dir, './add_date.html'))
   // res.send(req.body.name)
@@ -145,7 +149,30 @@ let retrieve_data = async function retrieve_data() {
       db.get(select_workout, [], (err, row) => {
         workoutGLOBAL = row
         console.log('145 workout in retrieve_workout', workoutGLOBAL, Date.now())
-        return workoutGLOBAL
+// Moved from xxx 12/24/21
+var add_date_html = `
+  <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Add Date to Workout Name (use {})</h2>
+
+<form action="/update_db.html" method="POST"">
+  <label for="date">Workout Date:</label><br>
+  <input type="text" id="work_out_date" name="work_out_date" value="Today's Date"><br>
+  <input type="submit" value="Submit New Date">
+</form> 
+
+<div><span>Cancel Button</span><span>Edit Workout Button</span><span>Add New Workout Button</span></div>
+
+</body>
+</html>
+
+  `
+  res.send(add_date_html)
+
+// End moved from xxx 12/24/21
+
       })
     } catch (e) {
       console.log('Did not retrieve data:)', e)
