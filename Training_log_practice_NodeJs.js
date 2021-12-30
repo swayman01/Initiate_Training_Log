@@ -105,7 +105,7 @@ app.post('/update_db.html', (req, res) => {
   //add date to date array
   workoutGLOBAL.date_array.split(',').push(new_date)
   new_date_array = new_date.concat(', ', workoutGLOBAL.date_array)
-  console.log('107 new_date_array', new_date_array)
+  console.log('107 new_date_array', Date.now(), '  ', new_date_array)
 
   // Update db for new_date_array
   update_command = `
@@ -113,13 +113,26 @@ UPDATE  workouts
 SET date_array = "${new_date_array}"
 WHERE id = ${workoutGLOBAL.id}
   `
-  console.log('116 update_command: ', update_command)
-  let db_update_promise = db.run(update_command)
-  console.log('118: db_update_promise', db_update_promise)
-  retrieve_data()
-  console.log('pause 117')
+  console.log('116 update_command: ', Date.now(), update_command)
+  // let db_update_promise = db.run(update_command)
+  console.log('118: time', Date.now())
+  data_updated = new Promise((resolve, reject) => {
+    db.run(update_command)
+    // console.log('121 in data_updated : ', Date.now())
+    }).then(()=>{
+      retrieve_data() 
+      // res.redirect('/')
+    }).then(()=>{
+      console.log('126 data_updated Promise: ', Date.now())
+    })
+  
+    // resolve(console.log('122: ', data_updated))
+ 
+    
+
+
   // Reload home page
-  res.redirect('/')
+  
   // res.send(req.body.name)
 })
 
@@ -133,6 +146,7 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
 var workout_array = []
 let retrieve_data = async function retrieve_data() {
   try {
+    console.log('149 start retrieve_data: ', Date.now())
     let join_categories_to_workouts = `
     SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
     workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
@@ -152,6 +166,7 @@ let retrieve_data = async function retrieve_data() {
         // console.log('68: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
       });
       // console.log('70: ', workout_array)
+      console.log('169 finish retrieve_data: ', Date.now())
       write_html(workout_array)
     })
   } catch (e) {
