@@ -24,6 +24,7 @@ const port = 5001
 // Reference: https://www.geeksforgeeks.org/node-js-date-format-api/
 const date_format = require('date-and-time')
 var workoutGLOBAL = {}
+var workouts_htmlGLOBAL
 app.use(express.urlencoded({extended:false}))
 
 //Read in the head for html
@@ -42,14 +43,15 @@ readFile(head_input, 'utf8', (err, data) => {
 // Load header file
 app.get('/', (req, res, next) => {
   readFile('./index.html', 'utf8', (err, result) => {
-    res.end(training_log_head_html+workouts_html)
+    console.log('46: app.get: ', Date.now(), '\n', workouts_htmlGLOBAL.slice(800,1000))
+    res.end(training_log_head_html+workouts_htmlGLOBAL)
   })
 })
 
 // Retrieve workout_id
 app.post('/add_date.html', (req, res) => {
   var workout_id = req.body.name
-  console.log('52 workout_id ', workout_id, Date.now())
+  console.log('54 workout_id ', workout_id, Date.now())
   today = new Date()
   new_date = date_format.format(today,'MM/DD/YYYY')
 
@@ -65,9 +67,9 @@ app.post('/add_date.html', (req, res) => {
     workoutGLOBAL = row
     // console.log('66 workoutGLOBAL in retrieve_workout', workoutGLOBAL, row)
   })
-
-  //TODO: Different actions for different buttons
-  var add_date_html = `
+  setTimeout(()=>{
+    console.log('71 setTimeout: ', Date.now())
+    var add_date_html = `
   <!DOCTYPE html>
 <html>
 <body>
@@ -90,14 +92,12 @@ console.log("87 in script")
 
   `
   res.end(add_date_html)
+  }, 250)
 
-
-  // res.sendFile(path.resolve(base_dir, './add_date.html'))
-  // res.send(req.body.name)
+  //TODO: Different actions for different buttons
 })
 
 app.post('/update_db.html', (req, res) => {
-  console.log('100 req\n', req.body)
   console.log('102 update database here', workoutGLOBAL)
   let new_date = req.body.work_out_date
   console.log('103 req.body: ', req.body)
@@ -105,7 +105,7 @@ app.post('/update_db.html', (req, res) => {
   //add date to date array
   workoutGLOBAL.date_array.split(',').push(new_date)
   new_date_array = new_date.concat(', ', workoutGLOBAL.date_array)
-  console.log('107 new_date_array', new_date_array)
+  console.log('108 new_date_array', new_date_array)
 
   // Update db for new_date_array
   update_command = `
@@ -113,14 +113,16 @@ UPDATE  workouts
 SET date_array = "${new_date_array}"
 WHERE id = ${workoutGLOBAL.id}
   `
-  console.log('116 update_command: ', update_command)
-  let db_update_promise = db.run(update_command)
-  console.log('118: db_update_promise', db_update_promise)
+  console.log('116 update_command: ', update_command, Date.now())
+  // Reference: https://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
+db.run(update_command)
+setTimeout(()=>{
+  console.log('120 setTimeout: ', Date.now())
   retrieve_data()
-  console.log('pause 117')
   // Reload home page
   res.redirect('/')
-  // res.send(req.body.name)
+}, 500)
+  console.log('pause 125', Date.now())
 })
 
 // Connect to database
@@ -151,7 +153,7 @@ let retrieve_data = async function retrieve_data() {
         workout_array.push(row)
         // console.log('68: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
       });
-      // console.log('70: ', workout_array)
+      console.log('156: ', Date.now(), '\n', workout_array[0])
       write_html(workout_array)
     })
   } catch (e) {
@@ -159,9 +161,9 @@ let retrieve_data = async function retrieve_data() {
   }
 }
 
-var workouts_html = ''
+var workouts_htmlGLOBAL = ''
 function write_html(workout_array) {
-  console.log('80 in workout_array')
+  console.log('167 in workout_array')
   var last_category = -1
   for (let i=0; i < workout_array.length; i++) {
     if (last_category != workout_array[i].category_position) {
@@ -178,11 +180,12 @@ function write_html(workout_array) {
 }
 
 function write_details_end_html() {
-  workouts_html = workouts_html + '</ul></details>'
+  // console.log('184 write_details: ', Date.now(), '\n', workouts_htmlGLOBAL)
+  workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
 }
 
 function write_details_beginning_html(workout_row) {
-  workouts_html = workouts_html + `<details open><summary>${workout_row.category_name}</summary>
+  workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details open><summary>${workout_row.category_name}</summary>
   <ul class="workouts">`
 }
 
@@ -208,7 +211,8 @@ function write_workouts(workout_row) {
                 <span class="comments">${workout_row.workout_comment}</span>
             </li>
   `
-  workouts_html = workouts_html + workout
+  workouts_htmlGLOBAL = workouts_htmlGLOBAL + workout
+  // res.end(training_log_head_html+workouts_html) res not defined
 }
 
 retrieve_data()
