@@ -24,7 +24,7 @@ const port = 5001
 // Reference: https://www.geeksforgeeks.org/node-js-date-format-api/
 const date_format = require('date-and-time')
 var workoutGLOBAL = {}
-var workouts_htmlGLOBAL
+var workouts_htmlGLOBAL = ''
 app.use(express.urlencoded({extended:false}))
 
 //Read in the head for html
@@ -51,7 +51,7 @@ app.get('/', (req, res, next) => {
 // Retrieve workout_id
 app.post('/add_date.html', (req, res) => {
   var workout_id = req.body.name
-  console.log('54 workout_id ', workout_id, Date.now())
+  console.log('54 workout_id ', workout_id, Date.now()) // workout_id is passed
   today = new Date()
   new_date = date_format.format(today,'MM/DD/YYYY')
 
@@ -68,7 +68,6 @@ app.post('/add_date.html', (req, res) => {
     // console.log('66 workoutGLOBAL in retrieve_workout', workoutGLOBAL, row)
   })
   setTimeout(()=>{
-    console.log('71 setTimeout: ', Date.now())
     var add_date_html = `
   <!DOCTYPE html>
 <html>
@@ -76,7 +75,7 @@ app.post('/add_date.html', (req, res) => {
 
 <h2>Add Date to ${workoutGLOBAL.workout_name}</h2>
 
-<form action="/update_db.html" method="POST"">
+<form action="/update_db" method="POST"">
   <label for="date">Workout Date:</label><br>
   <input type="text" id="work_out_date" name="work_out_date" value=${new_date}><br>
   <input type="submit" value="Submit New Date">
@@ -97,15 +96,13 @@ console.log("87 in script")
   //TODO: Different actions for different buttons
 })
 
-app.post('/update_db.html', (req, res) => {
-  console.log('102 update database here', workoutGLOBAL)
+app.post('/update_db', (req, res) => {
+  console.log('101 app.post update_db', Date.now())
   let new_date = req.body.work_out_date
-  console.log('103 req.body: ', req.body)
-
   //add date to date array
   workoutGLOBAL.date_array.split(',').push(new_date)
   new_date_array = new_date.concat(', ', workoutGLOBAL.date_array)
-  console.log('108 new_date_array', new_date_array)
+  // console.log('108 new_date_array', new_date_array, Date.now()) // new_date_array is updated
 
   // Update db for new_date_array
   update_command = `
@@ -113,23 +110,35 @@ UPDATE  workouts
 SET date_array = "${new_date_array}"
 WHERE id = ${workoutGLOBAL.id}
   `
-  console.log('116 update_command: ', update_command, Date.now())
   // Reference: https://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
-db.run(update_command)
+db_return = db.run(update_command)  //TODO: See if we can something with the return code
+// console.log('119 db_return', db_return, Date.now())
 setTimeout(()=>{
-  console.log('120 setTimeout: ', Date.now())
+  console.log('119 setTimeout: ', Date.now(), '\n') //new_date_array is updated
+  // workoutGLOBAL = {}
   retrieve_data()
+    // TODO Learn about unhandled promise rejection
+    setTimeout(()=>{
+    // console.log('127 last update before  res.end: \n', workouts_htmlGLOBAL.slice(800,1000), Date.now())
+    // workouts_htmlGLOBAL NOT updated
+    res.redirect("/")
+    // res.end(training_log_head_html+workouts_htmlGLOBAL)
+  }, 500) // This delay is needed 1/1/22
+    
+    // workouts_htmlGLOBAL not updated
+  
+
   // Reload home page
-  res.redirect('/')
-}, 500)
-  console.log('pause 125', Date.now())
+  
+}, 0)  // Set to 0 1/1/22
+  // console.log('pause 138', Date.now()) //executes before the timeout
 })
 
 // Connect to database
 var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
   if (err) {
     console.log('Could not connect to database:', err)
-  } else console.log('43: Connected to database')
+  } else console.log('140: Connected to database')
 })
 
 var workout_array = []
@@ -146,24 +155,22 @@ let retrieve_data = async function retrieve_data() {
     ORDER BY category_position, last_date DESC
     `
     db.all(join_categories_to_workouts, [], (err, rows) => {
-      i = 0;
       workout_array = rows
-      rows.forEach((row) => {
-        i+=1;
-        workout_array.push(row)
-        // console.log('68: ',i, row.category_position, row.category_name, row.workout_name, row.date_array);
-      });
-      console.log('156: ', Date.now(), '\n', workout_array[0])
-      write_html(workout_array)
     })
   } catch (e) {
-    console.log('Did not retrieve data:)', e)
+    console.log('172 Did not retrieve data:)', e)
   }
+
+  setTimeout(()=>{
+    console.log('173 workout_array: ', Date.now(), workout_array[0].id)
+    write_html(workout_array)
+    }, 250) // This delay needed 1/1/22
 }
 
-var workouts_htmlGLOBAL = ''
 function write_html(workout_array) {
-  console.log('167 in workout_array')
+  workouts_htmlGLOBAL = {}
+  // console.log('179 workout_array in write_html', Date.now(), workout_array[0].date_array, '\n')
+  //workout_array is updated here
   var last_category = -1
   for (let i=0; i < workout_array.length; i++) {
     if (last_category != workout_array[i].category_position) {
@@ -174,13 +181,16 @@ function write_html(workout_array) {
     }
     write_workouts(workout_array[i])
     last_category = workout_array[i].category_position
+
+ // }, 500) did not work here
   
   }
   write_details_end_html()
+   
 }
 
 function write_details_end_html() {
-  // console.log('184 write_details: ', Date.now(), '\n', workouts_htmlGLOBAL)
+  // console.log('203 in write_details_end_html', Date.now(), workouts_htmlGLOBAL.slice(800,1000))
   workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
 }
 
@@ -190,8 +200,6 @@ function write_details_beginning_html(workout_row) {
 }
 
 function write_workouts(workout_row) {
-  //TODO Add Strong to name
-  //TODO Add dates routine
   // Put button and form on one line
   var add_date = `
   <form action="/add_date.html" method="POST">
@@ -211,13 +219,26 @@ function write_workouts(workout_row) {
                 <span class="comments">${workout_row.workout_comment}</span>
             </li>
   `
+  // if (workout_row.id == 1538) {
+  //   console.log('236 workout_row.date_array: ', workout_row.date_array,'\n\n') 
+  //   console.log('237 workout', workout)
+  //   // console.log('232 write_details: ', Date.now(), '\n', workout)
+  //   // workout is updated here
+  // }
   workouts_htmlGLOBAL = workouts_htmlGLOBAL + workout
+//   if (workout_row.id == 1538) {
+//   console.log('244: write_workouts: ', Date.now(), '\n', workouts_htmlGLOBAL.slice(800,1000))
+// }
+  // not updated here
+  // },0)
+
+
   // res.end(training_log_head_html+workouts_html) res not defined
 }
 
 retrieve_data()
 
 app.listen(port, () => {
-  console.log(`132: server is listening on port ${port} ....`)
+  console.log(`241: server is listening on port ${port} ....`)
 })
 
