@@ -6,12 +6,12 @@
 // TODO: Organize routes - https://stackoverflow.com/questions/59681974/how-to-organize-routes-in-nodejs-express-app
 //  and https://vegibit.com/node-js-routes-tutorial/
 // TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
-
+// See Simple_Form_nodeJS.js for ways to read in css files
 const sqlite3 = require('sqlite3').verbose();
 const express = require('express')
 const path = require('path')
 const app = express()
-// TODO update base_dir to avoid hardcoded path
+// TODO update base_dir to avoid hardcoded path See Multiple_Submit_Buttons.js
 const base_dir = path.resolve(__dirname)
 const {
   readFile,
@@ -42,14 +42,17 @@ readFile(head_input, 'utf8', (err, data) => {
 
 // Load header file
 app.get('/', (req, res, next) => {
-  readFile('./index.html', 'utf8', (err, result) => {
-    console.log('46: app.get: ', Date.now(), '\n', workouts_htmlGLOBAL.slice(800,1000))
+    // console.log('45: app.get: ', Date.now(), '\n', workouts_htmlGLOBAL.slice(800,1000))
     res.end(training_log_head_html+workouts_htmlGLOBAL)
-  })
 })
 
+app.post('/', (req, res, next) => {
+    // console.log('52: app.post: ', Date.now(), '\n', workouts_htmlGLOBAL.slice(800,1000))
+    res.redirect("/")
+  })
+
 // Retrieve workout_id
-app.post('/add_date.html', (req, res) => {
+app.post('/add_date', (req, res) => {
   var workout_id = req.body.name
   console.log('54 workout_id ', workout_id, Date.now()) // workout_id is passed
   today = new Date()
@@ -61,7 +64,6 @@ app.post('/add_date.html', (req, res) => {
     WHERE id = ${workout_id}
     LIMIT 1
     `
-  
     // TODO: Make async function
     db.get(select_workout, [], (err, row) => {
     workoutGLOBAL = row
@@ -75,20 +77,15 @@ app.post('/add_date.html', (req, res) => {
 
 <h2>Add Date to ${workoutGLOBAL.workout_name}</h2>
 
-<form action="/update_db" method="POST"">
+<form action="/update_db_date" method="POST">
   <label for="date">Workout Date:</label><br>
   <input type="text" id="work_out_date" name="work_out_date" value=${new_date}><br>
   <input type="submit" value="Submit New Date">
+  <input type="submit" value="Add New Workout" formaction="/new_workout">
+  <input type="submit" value="Cancel" formaction="/">
 </form> 
-
-<div><span>Cancel Button</span><span>Edit Workout Button</span><span>Add New Workout Button</span></div>
-
 </body>
-<script>
-console.log("87 in script")
-</script>
 </html>
-
   `
   res.end(add_date_html)
   }, 250)
@@ -96,8 +93,44 @@ console.log("87 in script")
   //TODO: Different actions for different buttons
 })
 
-app.post('/update_db', (req, res) => {
-  console.log('101 app.post update_db', Date.now())
+app.post('/new_workout', (req, res) => {
+  
+    var new_workout_html = `
+  <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Add New Workout</h2>
+
+<form action="/add_workout" method="POST">
+  <label for="workout_name">Category Name:</label><br>
+  <input type="text" id="category_name" name="category_name" ><br>
+  <label for="workout_name">Workout Name:</label><br>
+  <input type="text" id="workout_name" name="workout_name" ><br>
+  <label for="workout_url">Workout URL (optional) :</label><br>
+  <input type="text" id="workout_url" name="workout_url" ><br>
+  <label for="date">Workout Date:</label><br>
+  <input type="text" id="work_out_date" name="work_out_date" value=${new_date}><br>
+  <label for="workout_length">Workout Length (optional) :</label><br>
+  <input type="text" id="workout_length" name="workout_length" ><br>
+  <label for="toRepeat">Repeat Workout (default is no) TODO make Y/N choice:</label><br>
+  <input type="text" id="toRepeat" name="toRepeat" ><br>
+  <label for="workout_comment">Workout Comment (optional) :</label><br>
+  <input type="text" id="workout_comment" name="workout_comment" ><br>
+
+  <input type="submit" value="Add New Workout" formaction="/update_db_workout">
+  <input type="submit" value="Cancel" formaction="/">
+  
+</form> 
+</body>
+</html>
+
+  `
+  res.end(new_workout_html)
+})
+
+app.post('/update_db_date', (req, res) => {
+  console.log('104 app.post update_db_date', Date.now())
   let new_date = req.body.work_out_date
   //add date to date array
   workoutGLOBAL.date_array.split(',').push(new_date)
@@ -119,26 +152,71 @@ setTimeout(()=>{
   retrieve_data()
     // TODO Learn about unhandled promise rejection
     setTimeout(()=>{
-    // console.log('127 last update before  res.end: \n', workouts_htmlGLOBAL.slice(800,1000), Date.now())
-    // workouts_htmlGLOBAL NOT updated
+     // Reload home page
     res.redirect("/")
     // res.end(training_log_head_html+workouts_htmlGLOBAL)
   }, 500) // This delay is needed 1/1/22
-    
-    // workouts_htmlGLOBAL not updated
-  
-
-  // Reload home page
-  
 }, 0)  // Set to 0 1/1/22
-  // console.log('pause 138', Date.now()) //executes before the timeout
+  // console.log('pause 127', Date.now()) //executes before the timeout
+})
+
+app.post('/update_db_workout', (req, res) => {
+    category_name = req.body.category_name;
+    table = 'workouts'
+    workout_name = req.body.workout_name;
+    workout_url = req.body.workout_name;
+    date_array = req.body.workout_name;
+    toRepeat = req.body.toRepeat
+    workout_comment = req.body.comment;
+    console.log('171 req.body', Date.now(), req.body)
+    // Check for existing category
+    var select_categories = `
+    SELECT id, category_name, category_position, isClosed, category_subheading
+    FROM categories 
+    WHERE category_name = '${category_name}'
+    LIMIT 1
+    `
+    db.get(select_categories, [], (err, rows) => {
+      console.log('183 rows in workouts: ', Date.now(), rows)
+      if (err) {
+        console.log('182 err: ', Date.now(), err)
+      }
+      console.log('184 rows in workouts: ', Date.now(), rows)
+    })
+    setTimeout(()=>{
+      console.log('187 setTimeout: ', Date.now(), '\n') 
+      // workout_categories = rows
+      
+    }, 250)
+      //new_date_array is updated
+      // workoutGLOBAL = {}
+// TODO: Add capability to add new categories and add workouts to multiple categories
+// TODO Put this into the timeout above
+    db_return = db.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, toRepeat, workout_comment) 
+                  VALUES(?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, toRepeat, workout_comment]);
+    console.log('201 db_return', db_return, Date.now())   
+  
+    
+  // Reference: https://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
+// db_return = db.run(add_workout_command)  //TODO: See if we can something with the return code
+// 
+setTimeout(()=>{
+  retrieve_data()
+    // TODO Learn about unhandled promise rejection
+    setTimeout(()=>{
+     // Reload home page
+    res.redirect("/")
+    // res.end(training_log_head_html+workouts_htmlGLOBAL)
+  }, 500) // This delay is needed 1/1/22
+}, 0)  // Set to 0 1/1/22
+  // console.log('pause 127', Date.now()) //executes before the timeout
 })
 
 // Connect to database
 var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
   if (err) {
     console.log('Could not connect to database:', err)
-  } else console.log('140: Connected to database')
+  } else console.log('140: Connected to database', Date.now())
 })
 
 var workout_array = []
@@ -163,7 +241,6 @@ let retrieve_data = async function retrieve_data() {
   }
 
   setTimeout(()=>{
-    console.log('173 workout_array: ', Date.now(), workout_array[0].id)
     write_html(workout_array)
     }, 250) // This delay needed 1/1/22
 }
@@ -178,6 +255,7 @@ function write_html(workout_array) {
       if (last_category != -1) {
         write_details_end_html()
       }
+      // TODO Fix undefined for the first row
       write_details_beginning_html(workout_array[i]) 
     }
     write_workouts(workout_array[i])
@@ -203,21 +281,25 @@ function write_details_beginning_html(workout_row) {
 function write_workouts(workout_row) {
   // Put button and form on one line
   var add_date = `
-  <form action="/add_date.html" method="POST">
+  <form action="/add_date" method="POST">
     <input type="hidden" name="name" id="name" autocomplete="false" value=${workout_row.id}>
   <button type="submit" class="block">+</button>
 </form> 
   `
   workout = `
   <li id="wo_${workout_row.id}" "class="workout" >
+                <p>attempt to force one line
                 <span id="wos_${workout_row.id}" class="push_button" "display:inline-block">${add_date}
                 <a href="${workout_row.workout_url}"
                     target="_blank" rel="noopener noreferrer" class="link">${workout_row.workout_name}</a>
                 </span>
+                </p>
+                <p>
                 <span class="length">${workout_row.workout_length}</span>
                 <span class="separator">-</span>
                 <span class="dates">${workout_row.date_array}</span>
                 <span class="comments">${workout_row.workout_comment}</span>
+                </p>
             </li>
   `
   // if (workout_row.id == 1538) {
