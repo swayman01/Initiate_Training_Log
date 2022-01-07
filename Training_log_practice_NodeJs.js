@@ -23,6 +23,8 @@ const {
 const port = 5001
 // Reference: https://www.geeksforgeeks.org/node-js-date-format-api/
 const date_format = require('date-and-time')
+// Interval time since db does not seem to work with Promises
+const INTERVAL_TIME = 500  // 500 works, 200 doesn't
 var workoutGLOBAL = {}
 var workouts_htmlGLOBAL = ''
 app.use(express.urlencoded({extended:false}))
@@ -79,7 +81,7 @@ app.post('/add_date', (req, res) => {
 
 <form action="/update_db_date" method="POST">
   <label for="date">Workout Date:</label><br>
-  <input type="text" id="work_out_date" name="work_out_date" value=${new_date}><br>
+  <input type="text" id="workout_date" name="workout_date" value=${new_date}><br>
   <input type="submit" value="Submit New Date">
   <input type="submit" value="Add New Workout" formaction="/new_workout">
   <input type="submit" value="Cancel" formaction="/">
@@ -88,9 +90,8 @@ app.post('/add_date', (req, res) => {
 </html>
   `
   res.end(add_date_html)
-  }, 250)
+  }, INTERVAL_TIME)
 
-  //TODO: Different actions for different buttons
 })
 
 app.post('/new_workout', (req, res) => {
@@ -110,7 +111,7 @@ app.post('/new_workout', (req, res) => {
   <label for="workout_url">Workout URL (optional) :</label><br>
   <input type="text" id="workout_url" name="workout_url" ><br>
   <label for="date">Workout Date:</label><br>
-  <input type="text" id="work_out_date" name="work_out_date" value=${new_date}><br>
+  <input type="text" id="workout_date" name="workout_date" value=${new_date}><br>
   <label for="workout_length">Workout Length (optional) :</label><br>
   <input type="text" id="workout_length" name="workout_length" ><br>
   <label for="toRepeat">Repeat Workout (default is no) TODO make Y/N choice:</label><br>
@@ -130,86 +131,106 @@ app.post('/new_workout', (req, res) => {
 })
 
 app.post('/update_db_date', (req, res) => {
-  console.log('104 app.post update_db_date', Date.now())
-  let new_date = req.body.work_out_date
+  console.log('133 app.post update_db_date', Date.now())
+  let new_date = req.body.workout_date
   //add date to date array
   workoutGLOBAL.date_array.split(',').push(new_date)
   new_date_array = new_date.concat(', ', workoutGLOBAL.date_array)
-  // console.log('108 new_date_array', new_date_array, Date.now()) // new_date_array is updated
-
-  // Update db for new_date_array
+  try {
+    last_dateSTR = new_date_array.split(',')[0]
+    last_dateOBJ = new Date(last_dateSTR)
+    last_date = last_dateOBJ.getTime()
+    console.log('143 last_date', Date.now(), last_date)
+  }
+    catch(err) {
+      console.log('146 err: ', err, '\n')
+    }
+  // Update db for new_date_array and last_date
   update_command = `
 UPDATE  workouts 
-SET date_array = "${new_date_array}"
+SET date_array = "${new_date_array}",
+last_date = "${last_date}"
 WHERE id = ${workoutGLOBAL.id}
   `
   // Reference: https://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
-db_return = db.run(update_command)  //TODO: See if we can something with the return code
-// console.log('119 db_return', db_return, Date.now())
-setTimeout(()=>{
-  console.log('119 setTimeout: ', Date.now(), '\n') //new_date_array is updated
-  // workoutGLOBAL = {}
-  retrieve_data()
-    // TODO Learn about unhandled promise rejection
-    setTimeout(()=>{
-     // Reload home page
+  db_return = db.run(update_command) //TODO: See if we can something with the return code
+  // console.log('119 db_return', db_return, Date.now())
+  console.log('\n149 update_command: ', Date.now()) //new_date_array is updated
+  setTimeout(() => {
+    retrieve_data()
+  }, INTERVAL_TIME) // This delay is needed 1/1/22
+  // TODO Learn about unhandled promise rejection
+  setTimeout(() => {
+    // Reload home page
+    console.log('156 redirect after update_command: ', Date.now(), '\n')
     res.redirect("/")
-    // res.end(training_log_head_html+workouts_htmlGLOBAL)
-  }, 500) // This delay is needed 1/1/22
-}, 0)  // Set to 0 1/1/22
+  }, INTERVAL_TIME * 2) // Set to 0 1/1/22
   // console.log('pause 127', Date.now()) //executes before the timeout
 })
 
 app.post('/update_db_workout', (req, res) => {
-    category_name = req.body.category_name;
-    table = 'workouts'
-    workout_name = req.body.workout_name;
-    workout_url = req.body.workout_name;
-    date_array = req.body.workout_name;
-    toRepeat = req.body.toRepeat
-    workout_comment = req.body.comment;
-    console.log('171 req.body', Date.now(), req.body)
-    // Check for existing category
-    var select_categories = `
+  // TODO: Sort by date
+      category_name = req.body.category_name;
+      table = 'workouts'
+      workout_name = req.body.workout_name;
+      workout_url = req.body.workout_url;
+      date_array = req.body.workout_date;
+      last_dateOBJ = new Date(date_array)
+      last_date = last_dateOBJ.getTime()
+      if (isNaN(last_date)) last_date = 0
+      workout_length = req.body.workout_length;
+      toRepeat = req.body.toRepeat
+      workout_comment = req.body.workout_comment;
+      console.log('172 req.body', Date.now(), req.body)
+      // Check for existing category
+      var select_categories = `
     SELECT id, category_name, category_position, isClosed, category_subheading
     FROM categories 
     WHERE category_name = '${category_name}'
     LIMIT 1
     `
-    db.get(select_categories, [], (err, rows) => {
-      console.log('183 rows in workouts: ', Date.now(), rows)
-      if (err) {
-        console.log('182 err: ', Date.now(), err)
-      }
-      console.log('184 rows in workouts: ', Date.now(), rows)
-    })
-    setTimeout(()=>{
-      console.log('187 setTimeout: ', Date.now(), '\n') 
-      // workout_categories = rows
-      
-    }, 250)
-      //new_date_array is updated
-      // workoutGLOBAL = {}
-// TODO: Add capability to add new categories and add workouts to multiple categories
-// TODO Put this into the timeout above
-    db_return = db.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, toRepeat, workout_comment) 
-                  VALUES(?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, toRepeat, workout_comment]);
-    console.log('201 db_return', db_return, Date.now())   
+      db.get(select_categories, [], (err, rows) => {
+        if (err) {
+          console.log('181 err: ', Date.now(), err)
+          // TODO Add error handling here
+        }
+        console.log('184 rows in categories: ', Date.now(), rows)
+        if (rows == undefined) {
+          console.log(Date.now(), 'Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.')
+          res.end('/')
+        } else {
+          table = 'categories_to_workouts'
+          db.run(`INSERT INTO ${table} (workout_name, category_name) 
+                      VALUES(?, ?)`, [workout_name, category_name]);
+          console.log('193 db_return for categories_to_workouts', Date.now())
+          //TODO set error
+
+          setTimeout(() => {
+            console.log('\n196', Date.now(), workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date)
+            table = 'workouts'
+            console.log('197 setTimeout: ', Date.now(), '\n')
+            // workout_categories = rows
+            db.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date) 
+                      VALUES(?, ?, ?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date]);
+            console.log('201 db_return for workouts', Date.now())
+
+          }, INTERVAL_TIME)
+
+          setTimeout(() => {
+            console.log('202 call retrieve_data ', Date.now())
+            retrieve_data()
+          }, INTERVAL_TIME * 2) // This delay is needed 1/1/22
+
+          setTimeout(() => {
+            // Reload home page
+            console.log('213redirect to home page in retrieve_data ', Date.now())
+            res.redirect("/")
+            // res.end(training_log_head_html+workouts_htmlGLOBAL)
+
+          }, INTERVAL_TIME * 3) // Set to 0 1/1/22, reset on 1/6/22 after adding functionality
+        }
+      })
   
-    
-  // Reference: https://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
-// db_return = db.run(add_workout_command)  //TODO: See if we can something with the return code
-// 
-setTimeout(()=>{
-  retrieve_data()
-    // TODO Learn about unhandled promise rejection
-    setTimeout(()=>{
-     // Reload home page
-    res.redirect("/")
-    // res.end(training_log_head_html+workouts_htmlGLOBAL)
-  }, 500) // This delay is needed 1/1/22
-}, 0)  // Set to 0 1/1/22
-  // console.log('pause 127', Date.now()) //executes before the timeout
 })
 
 // Connect to database
@@ -222,7 +243,8 @@ var db = new sqlite3.Database('./db/initial_training_log.db', (err) => {
 var workout_array = []
 let retrieve_data = async function retrieve_data() {
   try {
-    console.log('149 start retrieve_data: ', Date.now())
+    //db.open //db.open is not a function
+    console.log('265 start retrieve_data: ', Date.now())
     let join_categories_to_workouts = `
     SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
     workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
@@ -235,14 +257,18 @@ let retrieve_data = async function retrieve_data() {
     `
     db.all(join_categories_to_workouts, [], (err, rows) => {
       workout_array = rows
+      if (err) {
+        console.log('279 error in join_categories_to_workouts', Date.now(), err)
+      }
     })
+    // TODO - Use a if (err) to catch the error)
   } catch (e) {
-    console.log('172 Did not retrieve data:)', e)
+    console.log('284 Did not retrieve data:)', e) // Is this used?
   }
 
   setTimeout(()=>{
     write_html(workout_array)
-    }, 250) // This delay needed 1/1/22
+    }, INTERVAL_TIME) // This delay needed 1/1/22
 }
 
 function write_html(workout_array) {
@@ -305,7 +331,6 @@ function write_workouts(workout_row) {
   // if (workout_row.id == 1538) {
   //   console.log('236 workout_row.date_array: ', workout_row.date_array,'\n\n') 
   //   console.log('237 workout', workout)
-  //   // console.log('232 write_details: ', Date.now(), '\n', workout)
   //   // workout is updated here
   // }
   workouts_htmlGLOBAL = workouts_htmlGLOBAL + workout
@@ -316,7 +341,6 @@ function write_workouts(workout_row) {
   // },0)
 
 
-  // res.end(training_log_head_html+workouts_html) res not defined
 }
 
 retrieve_data()
