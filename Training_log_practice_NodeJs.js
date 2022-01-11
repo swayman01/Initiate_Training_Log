@@ -209,7 +209,6 @@ WHERE id = ${workoutGLOBAL.id}
 })
 
 app.post('/update_db_workout', (req, res) => {
-      // TODO: Change for Add/Edit
       category_name = req.body.category_name;
       table = 'workouts'
       workout_name = req.body.workout_name;
@@ -249,7 +248,7 @@ app.post('/update_db_workout', (req, res) => {
               //TODO set error
             }
             setTimeout(() => {
-              console.log('\n251', Date.now(), workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date)
+              console.log('\n252', Date.now(), workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date)
               table = 'workouts'
               console.log('254 setTimeout: ', Date.now(), '\n')
               db.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date) 
@@ -264,10 +263,10 @@ app.post('/update_db_workout', (req, res) => {
             date_array = "${date_array}",
             workout_length = "${workout_length}",
             toRepeat = "${toRepeat}",
-            workout_comment = "${workout_comment}"
+            workout_comment = "${workout_comment}",
+            last_date = "${last_date}"
             WHERE id = "${workoutGLOBAL.id}"
             `)
-            // TODO: Do we need last_date, Fix to Repeat
             if (err) {
               console.log('271 update error: ', err)
             }
@@ -282,8 +281,6 @@ app.post('/update_db_workout', (req, res) => {
             // Reload home page
             console.log('262 redirect to home page in retrieve_data ', Date.now())
             res.redirect("/")
-            // res.end(training_log_head_html+workouts_htmlGLOBAL)
-
           }, INTERVAL_TIME * 4) // Set to 0 1/1/22, reset on 1/6/22 after adding functionality
         })
       })
