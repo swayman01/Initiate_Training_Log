@@ -352,7 +352,10 @@ function write_details_end_html() {
 }
 
 function write_details_beginning_html(workout_row) {
-  workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details open><summary>${workout_row.category_name}</summary>
+  console.log('355 workout_row', workout_row.isClosed)
+  if (workout_row.isClosed == 1) details = 'open'
+  else details = 'closed'
+  workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details ${details}><summary>${workout_row.category_name}</summary>
   <ul class="workouts">`
 }
 
