@@ -347,12 +347,10 @@ function write_html(workout_array) {
 }
 
 function write_details_end_html() {
-  // console.log('203 in write_details_end_html', Date.now(), workouts_htmlGLOBAL.slice(800,1000))
   workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
 }
 
 function write_details_beginning_html(workout_row) {
-  console.log('355 workout_row', workout_row.isClosed)
   if (workout_row.isClosed == 1) details = 'open'
   else details = 'closed'
   workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details ${details}><summary>${workout_row.category_name}</summary>
@@ -374,25 +372,46 @@ function write_workouts(workout_row) {
     strong_a = '<strong>'
     strong_b = '</strong>'
   }
-  // if ((workout_row.toRepeat=='N') || (workout_row.toRepeat=='0')) {
-  //   strong_a = ' '
-  //   strong_b = ' '
-  // }
+  
+// Start modifications
+//<li id="wo_1" "class=" workout">
+    // <div id="wos_1" class="flex-container" "push_button">
+    //   <div>
+  //       <form action="/modify_workouts" method="POST">
+  //         <input type="hidden" name="name" id="name" autocomplete="false" value=1>
+  //         <button type="submit" class="block">+</button>
+  //       </form>
+  //     </div>
+  //     <div> <a href="https://manflowyoga.tv/programs/mfyl-workout-for-core-strength-breathing-balance" target="_blank"
+  //         rel="noopener noreferrer" class="link"> Workout for Core Strength, Breathing, & Balance (BSF #2) </a>
+  //       </div>
+  //     <div class="length">26:27</div>
+  //     <div class="separator">-</div>
+  //     <div class="dates">11/18/20, 11/4/20</div>
+  //     <div class="comments"></div>
+  //   </div>
+  // </li>
+
+// End Modifications
+
 
   workout = `
   <li id="wo_${workout_row.id}" "class="workout" >
-                <span id="wos_${workout_row.id}" class="push_button" "display:inline-block">${add_date}
-                <a href="${workout_row.workout_url}"
-                    target="_blank" rel="noopener noreferrer" 
-                    class="link">${strong_a}${workout_row.workout_name}${strong_b}</a>
-                </span>
-                <span>
-                <span class="length">${workout_row.workout_length}</span>
-                <span class="separator">-</span>
-                <span class="dates">${workout_row.date_array}</span>
-                <span class="comments">${workout_row.workout_comment}</span>
-                </span>
-            </li>
+    <div class="flex-container" "push_button">
+      <div>
+       ${add_date}
+      </div>
+      <div>   
+        <a href="${workout_row.workout_url}"
+            target="_blank" rel="noopener noreferrer" 
+            class="link">${strong_a}${workout_row.workout_name}${strong_b}</a>
+        </div>  
+        <div class="length">${workout_row.workout_length}</div>
+        <div class="separator">-</div>
+        <div class="dates">${workout_row.date_array}</div>
+        <div class="comments">${workout_row.workout_comment}</div>
+      </div>
+  </li>
   `
   // if (workout_row.id == 1538) {
   //   console.log('236 workout_row.date_array: ', workout_row.date_array,'\n\n') 
